@@ -44,8 +44,8 @@
 							</div>
 							<div id="collapse1" class="accordion-body collapse">
 								<div class="accordion-inner">
-									<div class="btn btn-block text-center" onclick="bt1();">即時狀態</div>
-									<div class="btn btn-block text-center" onclick="bt2();">號誌控制邏輯</div>
+									<div class="btn btn-info btn-block text-center" onclick="bt1();">即時狀態</div>
+									<div class="btn btn-info btn-block text-center" onclick="bt2();">號誌控制邏輯</div>
 								</div>
 							</div>
 						</div>
@@ -77,8 +77,8 @@
 							</div>
 							<div id="collapse3" class="accordion-body collapse">
 								<div class="accordion-inner">
-									<div class="btn btn-block text-center" onclick="bt4();">路口參數</div>
-									<div class="btn btn-block text-center" onclick="bt5();">路口排程</div>
+									<div class="btn btn-info btn-block text-center" onclick="bt4();">路口參數</div>
+									<div class="btn btn-info btn-block text-center" onclick="bt5();">路口排程</div>
 								</div>
 							</div>
 						</div>
@@ -120,13 +120,13 @@
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
 				'<div class="btn-group btn-group-vertical">\
-					<div class="btn btn-info">快捷巴士</div>\
-					<div class="btn btn-info">快捷巴士站</div>\
-					<div class="btn btn-info">優先號誌</div>\
-					<div class="btn btn-info">BRT路線</div>\
-					<div class="btn btn-info">TOD</div>\
-					<div class="btn btn-info">Priority</div>\
-					<div class="btn btn-info">手動</div>\
+					<div class="btn btn-success">快捷巴士</div>\
+					<div class="btn btn-success">快捷巴士站</div>\
+					<div class="btn btn-success">優先號誌</div>\
+					<div class="btn btn-success">BRT路線</div>\
+					<div class="btn btn-success">TOD</div>\
+					<div class="btn btn-success">Priority</div>\
+					<div class="btn btn-success">手動</div>\
 				</div>',
 				undefined,
 				{
@@ -143,13 +143,13 @@
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
 				'<div class="btn-group btn-group-vertical">\
-					<div class="btn btn-info">快捷巴士</div>\
-					<div class="btn btn-info">快捷巴士站</div>\
-					<div class="btn btn-info">優先號誌</div>\
-					<div class="btn btn-info">BRT路線</div>\
-					<div class="btn btn-info">TOD</div>\
-					<div class="btn btn-info">Priority</div>\
-					<div class="btn btn-info">手動</div>\
+					<div class="btn btn-success">快捷巴士</div>\
+					<div class="btn btn-success">快捷巴士站</div>\
+					<div class="btn btn-success">優先號誌</div>\
+					<div class="btn btn-success">BRT路線</div>\
+					<div class="btn btn-success">TOD</div>\
+					<div class="btn btn-success">Priority</div>\
+					<div class="btn btn-success">手動</div>\
 				</div>',
 				undefined,
 				{
@@ -163,6 +163,21 @@
 		var bt3=function(){
 			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
+			qmap.addInfo(
+				'<div class="btn-group btn-group-vertical">\
+					<div class="btn btn-info">正常</div>\
+					<div class="btn btn-info">異常</div>\
+					<div class="btn btn-info">BRT路線</div>\
+					<div class="btn btn-info">快捷巴士</div>\
+				</div>',
+				undefined,
+				{
+					backgroundColor:'silver',
+					width: 130,
+					marginBottom:40,
+					marginLeft:-50
+				}
+			);
 		};
 		var bt4=function(){
 			$('table td.bottomInfo').css('height','0px');
@@ -368,6 +383,35 @@
 	<style>
 		table.table input:hover {
 			background-color: lightyellow;
+		}
+
+		body {
+			font-family: '微軟正黑體' !important;
+		}
+
+		.accordion .btn-primary {
+			font-size: 16pt !important;
+			font-weight:bold !important;
+		}
+
+		.accordion-inner label {
+			font-size: 12pt !important;
+			font-weight:bold !important;
+		}
+
+		.accordion-inner .btn {
+			font-weight:bold !important;
+			font-size: 12pt;
+		}
+
+		.brand {
+			font-size: 20pt !important;
+			font-weight:bold !important;
+		}
+
+		.btn.btn-success {
+			font-weight:bold !important;
+			font-size: 10pt;
 		}
 	</style>
 </body>
