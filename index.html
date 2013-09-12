@@ -23,7 +23,7 @@
 						<a class="brand" href="#">BRT快捷公車資訊系統</a>
 							<ul class="nav">
 								<li class="active"><a href="#">首页</a></li>
-								<!-- <li><a href="#">Link</a></li> -->
+								<li><a href="#">Link</a></li>
 								<!-- <li><a href="#">Link</a></li> -->
 							</ul>
 						</div>
@@ -116,6 +116,12 @@
 	<script>
 		var qmap;
 		var bt1=function(){
+
+			$('ul.nav').empty()
+			.append('<li class="active"><a href="#">首页</a></li>')
+			.append('<li class="active"><a href="#">BRT即時狀態</a></li>')
+			.append('<li class="active"><a href="#">即時狀態</a></li>');
+
 			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
@@ -139,6 +145,12 @@
 		};
 
 		var bt2=function(){
+
+			$('ul.nav').empty()
+			.append('<li class="active"><a href="#">首页</a></li>')
+			.append('<li class="active"><a href="#">BRT即時狀態</a></li>')
+			.append('<li class="active"><a href="#">號誌控制邏輯</a></li>');
+
 			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
@@ -161,6 +173,11 @@
 			);
 		};
 		var bt3=function(){
+
+			$('ul.nav').empty()
+			.append('<li class="active"><a href="#">首页</a></li>')
+			.append('<li class="active"><a href="#">控制設備資訊</a></li>');
+
 			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
@@ -180,6 +197,12 @@
 			);
 		};
 		var bt4=function(){
+
+			$('ul.nav').empty()
+			.append('<li class="active"><a href="#">首页</a></li>')
+			.append('<li class="active"><a href="#">排程</a></li>')
+			.append('<li class="active"><a href="#">路口參數</a></li>');
+
 			$('table td.bottomInfo').css('height','0px');
 			qmap=$('#centerview').empty().css('background-color','transparent');
 			qmap.append(
@@ -311,6 +334,12 @@
 			};
 		};
 		var bt5=function(){
+
+			$('ul.nav').empty()
+			.append('<li class="active"><a href="#">首页</a></li>')
+			.append('<li class="active"><a href="#">排程</a></li>')
+			.append('<li class="active"><a href="#">路口排程</a></li>');
+
 			$('table td.bottomInfo').css('height','0px');
 			qmap=$('#centerview').empty().css('background-color','transparent');
 			qmap.append(
@@ -367,10 +396,20 @@
 			});
 		};
 		var bt6=function(){
+
+			$('ul.nav').empty()
+			.append('<li class="active"><a href="#">首页</a></li>')
+			.append('<li class="active"><a href="#">BRT績效</a></li>');
+
 			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 		};
 		var bt7=function(){
+
+			$('ul.nav').empty()
+			.append('<li class="active"><a href="#">首页</a></li>')
+			.append('<li class="active"><a href="#">事故顯示</a></li>');
+
 			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 		};
@@ -412,6 +451,15 @@
 		.btn.btn-success {
 			font-weight:bold !important;
 			font-size: 10pt;
+		}
+
+		.navbar-inner {
+			padding-right:0px;
+		}
+
+		.navbar .nav {
+			float:right !important;
+			margin-right:0px;
 		}
 	</style>
 </body>
