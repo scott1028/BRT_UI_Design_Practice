@@ -2,7 +2,7 @@
 <html lang="zh-TW" style="height:100%;">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>BRT快捷公車資訊系統</title>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script src="jquery-1.10.2.min.js"></script>
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -14,11 +14,7 @@
 	<script src="http://openlayers.org/api/OpenLayers.js"></script>
 </head>
 <body style="height:100%;padding:0px;margin:0px;">
-	<!-- 	<form action="http://192.168.1.198/cgi-bin/a.exe" method=post>
-		<input type=text name="aa" />789
-		<input type=submit />789
-	</form> -->
-	<table style="width:100%;height:100%;" border=0>
+	<table style="width:100%;height:100%;" border="0">
 		<tbody>
 			<tr>
 				<td style="height:42px;vertical-align:center;padding:0px;" colspan="2">
@@ -42,21 +38,21 @@
 
 						<div class="accordion-group">
 							<div class="accordion-heading">
-								<div class="accordion-toggle btn-primary" data-toggle="collapse" data-parent="#accordion2" href="#collapse1">
+								<div class="accordion-toggle btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse1">
 									BRT即時狀態
 								</div>
 							</div>
 							<div id="collapse1" class="accordion-body collapse">
 								<div class="accordion-inner">
-									<div class="btn btn-block" onclick="bt1();">即時狀態</div>
-									<div class="btn btn-block" onclick="bt2();">號誌控制邏輯</div>
+									<div class="btn btn-block text-center" onclick="bt1();">即時狀態</div>
+									<div class="btn btn-block text-center" onclick="bt2();">號誌控制邏輯</div>
 								</div>
 							</div>
 						</div>
 
 						<div class="accordion-group">
 							<div class="accordion-heading">
-								<div class="accordion-toggle btn-primary" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" onclick="bt3();">
+								<div class="accordion-toggle btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" onclick="bt3();">
 									控制設備資訊
 								</div>
 							</div>
@@ -75,21 +71,21 @@
 
 						<div class="accordion-group">
 							<div class="accordion-heading">
-								<div class="accordion-toggle btn-primary" data-toggle="collapse" data-parent="#accordion2" href="#collapse3">
+								<div class="accordion-toggle btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse3">
 									排程
 								</div>
 							</div>
 							<div id="collapse3" class="accordion-body collapse">
 								<div class="accordion-inner">
-									<div class="btn btn-block" onclick="bt4();">路口參數</div>
-									<div class="btn btn-block" onclick="bt5();">路口排程</div>
+									<div class="btn btn-block text-center" onclick="bt4();">路口參數</div>
+									<div class="btn btn-block text-center" onclick="bt5();">路口排程</div>
 								</div>
 							</div>
 						</div>
 
 						<div class="accordion-group">
 							<div class="accordion-heading">
-								<div class="accordion-toggle btn-primary" data-toggle="collapse" data-parent="#accordion2" href="#collapse4" onclick="bt6();">
+								<div class="accordion-toggle btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse4" onclick="bt6();">
 									BRT績效
 								</div>
 							</div>
@@ -97,7 +93,7 @@
 
 						<div class="accordion-group">
 							<div class="accordion-heading">
-								<div class="accordion-toggle btn-primary" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">
+								<div class="accordion-toggle btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">
 									事故顯示
 								</div>
 							</div>
@@ -110,7 +106,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan=2 style="height:200px;">
+				<td class="bottomInfo" colspan=2 style="height:200px;">
 					<!-- 下方資訊頁 -->
 				</td>
 			</tr>
@@ -120,16 +116,17 @@
 	<script>
 		var qmap;
 		var bt1=function(){
+			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
-				'<div class="btn-group">\
-					<div class="btn">快捷巴士</div>\
-					<div class="btn">快捷巴士站</div>\
-					<div class="btn">優先號誌</div>\
-					<div class="btn">BRT路線</div>\
-					<div class="btn">TOD</div>\
-					<div class="btn">Priority</div>\
-					<div class="btn">手動</div>\
+				'<div class="btn-group btn-group-vertical">\
+					<div class="btn btn-info">快捷巴士</div>\
+					<div class="btn btn-info">快捷巴士站</div>\
+					<div class="btn btn-info">優先號誌</div>\
+					<div class="btn btn-info">BRT路線</div>\
+					<div class="btn btn-info">TOD</div>\
+					<div class="btn btn-info">Priority</div>\
+					<div class="btn btn-info">手動</div>\
 				</div>',
 				undefined,
 				{
@@ -142,16 +139,17 @@
 		};
 
 		var bt2=function(){
+			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
-				'<div class="btn-group">\
-					<div class="btn">快捷巴士</div>\
-					<div class="btn">快捷巴士站</div>\
-					<div class="btn">優先號誌</div>\
-					<div class="btn">BRT路線</div>\
-					<div class="btn">TOD</div>\
-					<div class="btn">Priority</div>\
-					<div class="btn">手動</div>\
+				'<div class="btn-group btn-group-vertical">\
+					<div class="btn btn-info">快捷巴士</div>\
+					<div class="btn btn-info">快捷巴士站</div>\
+					<div class="btn btn-info">優先號誌</div>\
+					<div class="btn btn-info">BRT路線</div>\
+					<div class="btn btn-info">TOD</div>\
+					<div class="btn btn-info">Priority</div>\
+					<div class="btn btn-info">手動</div>\
 				</div>',
 				undefined,
 				{
@@ -163,9 +161,11 @@
 			);
 		};
 		var bt3=function(){
+			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 		};
 		var bt4=function(){
+			$('table td.bottomInfo').css('height','0px');
 			qmap=$('#centerview').empty().css('background-color','transparent');
 			qmap.append(
 				// 列表修改點
@@ -184,39 +184,119 @@
 			);
 			qmap.append(
 				'<div style="height:100%;padding:20px;padding-top:10px;">\
-					<label>路口名稱　<input type="text" value="忠明路與中正路口" readonly/></label>\
-					<label>日　　期　<input type="date" value="2013-09-12" /></label>\
+					<label style="float:left;margin-right:10px;">路口名稱　<input type="text" value="忠明路與中正路口" readonly/></label>\
+					<label style="float:left;margin-right:10px;">日　　期　<input type="date" value="2013-09-12" /></label>\
 					<table class="table table-striped table-bordered">\
 						<tbody>\
 							<tr>\
-								<th style="width:150px;"></th>\
-								<th style="text-align:center;">定時時制</th>\
-								<th style="text-align:center;">優先號誌</th>\
+								<th style="width:80px;"></th>\
+								<th style="text-align:center;" colspan="2">定時時制</th>\
+								<th style="text-align:center;width:35%;">優先號誌</th>\
 							</tr>\
 							<tr>\
-								<th style="text-align:center;">起始時間/控制策略</th>\
-								<th class="thead0"></th>\
-								<th class="thead1"></th>\
+								<th style="text-align:center;vertical-align:middle;"><div style="position:relative;height:40px;"><b style="position:absolute;top:0px;right:0px;">控制策略</b><b style="position:absolute;bottom:0px;left:0px;">起始時間</b></div></th>\
+								<th class="thead0" style="vertical-align:middle;width:100px;">時相名稱</th>\
+								<th class="thead0" style="padding:0px;">\
+									<table style="width:100%;margin:0px;">\
+										<tbody>\
+											<tr>\
+												<td colspan="4">分相時間</td>\
+											</tr>\
+											<tr>\
+												<td>1</td>\
+												<td>2</td>\
+												<td>3</td>\
+												<td>4</td>\
+											</tr>\
+										</tbody>\
+									</table>\
+								</th>\
+								<th class="thead1" style="padding:0px;">\
+									<table style="width:100%;margin:0px;table-layout:fixed;">\
+										<tbody>\
+											<tr>\
+												<td colspan="2">1</td>\
+												<td colspan="2">2</td>\
+												<td colspan="2">3</td>\
+												<td colspan="2">4</td>\
+											</tr>\
+											<tr>\
+												<td>Max</td>\
+												<td>Mix</td>\
+												<td>Max</td>\
+												<td>Mix</td>\
+												<td>Max</td>\
+												<td>Mix</td>\
+												<td>Max</td>\
+												<td>Mix</td>\
+											</tr>\
+										</tbody>\
+									</table>\
+								</th>\
 							</tr>\
 						</tbody>\
 					</table>\
 					<div style="height:100px;text-align:right">\
-						<span class="btn btn btn-inverse">恢復原始設定</span>\
-						<span class="btn btn-warning">保存</span>\
+						<span class="btn btn btn-inverse btn-large">放棄</span>\
+						<span class="btn btn-warning btn-large">保存</span>\
 					</div>\
 				</div>'
 			);
 
+			// for Demo
 			// header
-			qmap.find('.thead0').append('123');
-			qmap.find('.thead1').append('456');
+			// qmap.find('.thead0').append('-');
+			// qmap.find('.thead1').append('-');
 
-			//data
-			qmap.find('.thead1').parent().parent().append('<tr><td>00:00</td><td>1</td><td>1</td></tr>');
-			qmap.find('.thead1').parent().parent().append('<tr><td>00:06</td><td>1</td><td>1</td></tr>');
-			qmap.find('.thead1').parent().parent().append('<tr><td>00:17</td><td>1</td><td>1</td></tr>');
+			// data
+			for(var i=0;i<23;i+=1){
+				qmap.find('.thead1').parent().parent().append('\
+					<tr><td>'+( i<10 ? '0'+i : i )+':00</td>\
+					<td>\
+						<select style="width:150px;">\
+							<option selected="selected">普通二時相</option>\
+						</select>\
+					</td>\
+					<td style="padding:0px;height:40px;">\
+						<table style="width:100%;margin:0px;height:100%;">\
+							<tbody>\
+								<tr>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+								</tr>\
+							</tbody>\
+						</table>\
+					</td>\
+					<td style="padding:0px;height:40px;">\
+						<table style="width:100%;margin:0px;height:100%;">\
+							<tbody>\
+								<tr>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+									<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;" /></td>\
+								</tr>\
+							</tbody>\
+						</table>\
+					</td>\
+				');
+			};
+	
+			$('table.table td').css({textAlign:'center'});
+			$('table.table th').css({textAlign:'center'});
+			var tinput=$('table.table input').css({textAlign:'center',color:'blue'});
+			for(var i=0;i<tinput.length;i++){
+				$(tinput[i]).val(Math.round(Math.random()*40+20));
+			};
 		};
 		var bt5=function(){
+			$('table td.bottomInfo').css('height','0px');
 			qmap=$('#centerview').empty().css('background-color','transparent');
 			qmap.append(
 				'<ul class="nav nav-tabs">\
@@ -225,14 +305,58 @@
 					<li><a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">六、日</a></li>\
 				</ul>'
 			);
+
 			qmap.append(
-				'<div style="height:100%;">2</div>'
-			);
+				'<div style="height:100%;padding:20px;padding-top:10px;">\
+					<label>日　　期　<input type="date" value="2013-09-12" /></label>\
+					<table class="table table-striped table-bordered schedule_table">\
+						<tbody>\
+							<tr>\
+								<th><div style="position:relative;height:40px;"><b style="position:absolute;top:0px;right:0px;">控制策略</b><b style="position:absolute;bottom:0px;left:0px;">起始時間</b></div></th>\
+								<th>忠明路</th>\
+								<th>英才路</th>\
+								<th>五明路</th>\
+							</tr>\
+						</tbody>\
+					</table>\
+					<div style="height:100px;text-align:right">\
+						<span class="btn btn btn-inverse btn-large">放棄</span>\
+						<span class="btn btn-warning btn-large">保存</span>\
+					</div>\
+				</div>\
+			');
+
+			var st=qmap.find('table.schedule_table tbody');
+			for(var i=0;i<24;i++){
+				st.append('\
+					<tr>\
+						<th>'+( i<10 ? '0'+i : i )+':00</th>\
+						<td>'+(Math.random() > 0.5 ? '<span class="btn btn-warning">定時時制</span>' : '<span class="btn btn-danger">優先號誌</span>')+'</td>\
+						<td>'+(Math.random() > 0.5 ? '<span class="btn btn-warning">定時時制</span>' : '<span class="btn btn-danger">優先號誌</span>')+'</td>\
+						<td>'+(Math.random() > 0.5 ? '<span class="btn btn-warning">定時時制</span>' : '<span class="btn btn-danger">優先號誌</span>')+'</td>\
+					</tr>\
+				');
+			};
+
+			$('table.table td').css({textAlign:'center'});
+			$('table.table th').css({textAlign:'center'});
+			$('table.table td span.btn').click(function(e){
+				switch(e.target.innerText){
+					case '定時時制':
+						$(e.target).text('優先號誌').attr('class','btn btn-danger');
+						break;
+					case '優先號誌':
+						$(e.target).text('定時時制').attr('class','btn btn-warning');
+						break;
+				};
+			});
 		};
 		var bt6=function(){
+			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 		};
 		var bt7=function(){
+			$('table td.bottomInfo').css('height','200px');
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 		};
 
@@ -240,5 +364,11 @@
 			bt1();
 		});
 	</script>
+
+	<style>
+		table.table input:hover {
+			background-color: lightyellow;
+		}
+	</style>
 </body>
 </html>
