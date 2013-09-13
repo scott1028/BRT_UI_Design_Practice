@@ -17,7 +17,12 @@
 	<table style="width:100%;height:100%;" border="0">
 		<tbody>
 			<tr>
-				<td style="height:42px;vertical-align:center;padding:0px;" colspan="2">
+				<th style="height:100px;vertical-align:middle;text-align:center;" colspan="2">
+					Banner Logo
+				</th>
+			</tr>
+			<tr>
+				<td style="height:42px;vertical-align:middle;padding:0px;" colspan="2">
 					<div class="navbar" style="margin:0px;">
 						<div class="navbar-inner">
 						<a class="brand" href="#">BRT快捷公車資訊系統</a>
@@ -106,8 +111,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="bottomInfo" colspan=2 style="height:200px;">
+				<td class="bottomInfo" style="height:200px;vertical-align:middle;text-align:center;" colspan="2">
 					<!-- 下方資訊頁 -->
+					資訊專欄(需要美化邊框)
 				</td>
 			</tr>
 		</tbody>
@@ -122,7 +128,7 @@
 			.append('<li class="active"><a href="#">BRT即時狀態</a></li>')
 			.append('<li class="active"><a href="#">即時狀態</a></li>');
 
-			$('table td.bottomInfo').css('height','200px');
+			$('table td.bottomInfo').show();
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
 				'<div class="btn-group btn-group-vertical">\
@@ -153,7 +159,7 @@
 			.append('<li class="active"><a href="#">BRT即時狀態</a></li>')
 			.append('<li class="active"><a href="#">號誌控制邏輯</a></li>');
 
-			$('table td.bottomInfo').css('height','200px');
+			$('table td.bottomInfo').show();
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
 				'<div class="btn-group btn-group-vertical">\
@@ -182,7 +188,7 @@
 			.append('<li class="active"><a href="#">首页</a></li>')
 			.append('<li class="active"><a href="#">控制設備資訊</a></li>');
 
-			$('table td.bottomInfo').css('height','200px');
+			$('table td.bottomInfo').show();
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 			qmap.addInfo(
 				'<div class="btn-group btn-group-vertical">\
@@ -209,7 +215,7 @@
 			.append('<li class="active"><a href="#">排程</a></li>')
 			.append('<li class="active"><a href="#">路口參數</a></li>');
 
-			$('table td.bottomInfo').css('height','0px');
+			$('table td.bottomInfo').hide();//.css('height','0px');
 			qmap=$('#centerview').empty().css('background-color','transparent');
 			qmap.append(
 				// 列表修改點
@@ -349,7 +355,7 @@
 			.append('<li class="active"><a href="#">排程</a></li>')
 			.append('<li class="active"><a href="#">路口排程</a></li>');
 
-			$('table td.bottomInfo').css('height','0px');
+			$('table td.bottomInfo').hide();
 			qmap=$('#centerview').empty().css('background-color','transparent');
 			qmap.append(
 				'<ul class="nav nav-tabs">\
@@ -412,7 +418,7 @@
 			.append('<li class="active"><a href="#">首页</a></li>')
 			.append('<li class="active"><a href="#">BRT績效</a></li>');
 
-			$('table td.bottomInfo').css('height','200px');
+			$('table td.bottomInfo').show();
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 
 			$('#centerview').hide().fadeIn(300);
