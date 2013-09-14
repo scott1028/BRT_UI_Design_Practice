@@ -256,7 +256,7 @@
 				);
 
 				$('\
-					<table class="table table-striped table-bordered">\
+					<table class="table table-striped table-bordered mainbody">\
 						<tbody>\
 							<tr class="header">\
 								<th style="text-align:center;font-size:14pt;font-weight:bold;width:100px;">起始時間</th>\
@@ -267,8 +267,8 @@
 				').insertAfter(qmap.find('a.data_header_insert_point'));		// 插入點;
 
 			// 展示資料(可以刪除)
-				// for(var i=0;i<24;i++){
-					var i=0;
+				// var i=0;
+				for(var i=0;i<2;i++){
 					$('\
 						<tr>\
 							<th style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:middle;">'+( i<10 ? '0'+i+':00' : i+':00' )+'</th>\
@@ -368,8 +368,8 @@
 								\
 							</td>\
 						</tr>\
-					').appendTo(qmap.find('table.table tbody'));
-				// };
+					').appendTo(qmap.find('table.table.mainbody tbody'));
+				};
 
 			// 展示資料(可以刪除)
 				// $('<table class="table table-striped table-bordered">\
