@@ -3,19 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<title>BRT快捷公車資訊系統</title>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	
+	<!-- JQuery -->
 	<script src="jquery-1.10.2.min.js"></script>
+
+	<!-- Google Map -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<!--script src="http://openlayers.org/api/OpenLayers.js"></script-->
+	<script src="google_map_jquery_builder.js"></script>
+	
+	<!-- Boostrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="google_map_jquery_builder.js"></script>
+
+	<!-- Boostrap Plugin -->
+	<script src="bootstrap/timepicker_plugin/js/bootstrap-timepicker.min.js"></script>
+	<link href="bootstrap/timepicker_plugin/css/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
 
 	<!--ExtJS-->
 	<link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
     <script type="text/javascript" src="extjs/ext-all.js"></script>
-
-	<!--Google Map for Demo-->
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-	<script src="http://openlayers.org/api/OpenLayers.js"></script>
 </head>
 <body style="height:100%;padding:0px;margin:0px;overflow-y:scroll;width:1024px;margin:auto;">
 	<table style="width:100%;height:100%;" border="0">
@@ -222,265 +229,232 @@
 
 				$('table td.bottomInfo').hide();//.css('height','0px');
 				qmap=$('#centerview').empty().css('background-color','transparent');
-				qmap.append(
-					// 列表修改點(可修改)
-					'<select class="span3" style="float:right;margin:2px;font-size:12pt;font-weight:bold;">\
-							<option>忠明路口</option>\
-							<option>英才路口</option>\
-							<option>五權路口</option>\
-					</select>'
-				);
 				qmap.append('\
 					<div style="position:relative;z-index:-1;">\
 					<span class="btn btn-danger" style="float:left;margin:3px;font-size:12pt;">新增時段</span>\
 					<ul class="nav nav-tabs">\
-						<li class="active"><a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">平日</a></li>\
-						<li><a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">例假日</a></li>\
-						<li><a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">特別日 1</a></li>\
-						<li><a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">特別日 2</a></li>\
+						<li class="active">\
+							<a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">平日(6)</a>\
+						</li>\
+						<li>\
+							<a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">例假日(7)</a>\
+						</li>\
+						<li>\
+							<a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">特別日 1(8)</a>\
+						</li>\
+						<li>\
+							<a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">特別日 2(9)</a>\
+						</li>\
 					</ul>\
 					</div>\
 				');
 				qmap.append(
 					'<div style="height:100%;padding:20px;padding-top:10px;">\
-						<label style="float:left;margin-right:10px;font-size:14pt;font-weight:bold;">路口名稱　<input type="text" value="忠明路與中正路口" readonly style="font-size:14pt;font-weight:bold;" /></label>\
+						<label style="float:left;margin-right:10px;font-size:14pt;font-weight:bold;">路口名稱　\
+							<select class="span3" style="margin:2px;font-size:12pt;font-weight:bold;">\
+								<option>忠明路口</option>\
+								<option>英才路口</option>\
+								<option>五權路口</option>\
+							</select>\
+						</label>\
 						<label style="float:left;margin-right:10px;font-size:14pt;font-weight:bold;">日　　期　<input type="date" value="2013-09-12" style="font-size:14pt;font-weight:bold;" /></label>\
 						\
 						<a class="data_header_insert_point" style="display:none;"></a>\
 						\
 						<div style="height:100px;text-align:right;clear:both;">\
-							<span class="btn btn-large">放棄</span>\
-							<span class="btn btn-large">保存</span>\
+							<span class="btn btn-large btn-inverse">放棄</span>\
+							<span class="btn btn-large btn-inverse">保存</span>\
 						</div>\
 					</div>'
 				);
 
 				$('\
-					<table class="table table-striped table-bordered mainbody">\
-						<tbody>\
+					<div style="clear:both;text-align:right;margin:5px;">\
+						<span class="btn">刪除選取</span>\
+						<span class="btn">新增時間</span>\
+					</div>\
+				').insertBefore(qmap.find('a.data_header_insert_point'));		// 插入點;
+
+				$('\
+					<table class="table table-bordered mainbody">\
+						<thead>\
 							<tr class="header">\
-								<th style="text-align:center;font-size:14pt;font-weight:bold;width:100px;">起始時間</th>\
+								<th style="text-align:center;font-size:14pt;font-weight:bold;width:100px;" colspan="2">起始時間</th>\
 								<th style="text-align:center;font-size:14pt;font-weight:bold;" colspan="2">時制設定</th>\
 							</tr>\
-						</tbody>\
+						</thead>\
+						<tbody></tbody>\
 					</table>\
 				').insertAfter(qmap.find('a.data_header_insert_point'));		// 插入點;
 
+			// 資料列的 UI 設計
+			var create_tr_ui=function(data){
+				var ui=$('\
+					<tr>\
+						<th style="width:20px;padding-top:20px;"><input type="checkbox" /></th>\
+						<th style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:top;padding-top:20px;">\
+							<div class="input-append bootstrap-timepicker">\
+								<input type="text" class="input-small">\
+								<span class="add-on"><i class="icon-time"></i></span>\
+							</div>\
+						</th>\
+						<td style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:top;width:150px;padding-top:20px;">\
+							<select style="width:140px;font-size:12pt;font-weight:bold;">\
+								<option selected="selected">普通二時相</option>\
+								<option>閃黃燈</option>\
+							</select>\
+						</td>\
+						<td style="padding:0px;">\
+							<table style="width:100%;margin:0px;height:100%;">\
+								<thead>\
+									<tr>\
+										<th class="display-btn" onclick="console.log(a=this);$(this).parent().parent().parent().find(\'tbody tr.phase_details\').toggle(250);" style="cursor:pointer;width:40px;">＋</th>\
+										<th style="color:red !important;">分相1</th>\
+										<th style="color:red !important;">分相2</th>\
+										<th style="color:red !important;">分相3</th>\
+										<th style="color:red !important;">分相4</th>\
+										<th style="color:red !important;">分相5</th>\
+										<th style="color:red !important;">分相6</th>\
+										<th style="color:red !important;">分相7</th>\
+										<th style="color:red !important;">分相8</th>\
+									</tr>\
+									<!--總攬-->\
+									<tr class="phase_overview">\
+										<td style="color:#0080FF;font-weight:bold;">總秒數</td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+									</tr>\
+								</thead>\
+								<tbody>\
+									<!--細項-->\
+									<tr class="phase_details">\
+										<th>紅</th>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+									</tr>\
+									<!--細項-->\
+									<tr class="phase_details">\
+										<th>綠</th>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+									</tr>\
+									<tr class="phase_details">\
+										<th>黃</th>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+									</tr>\
+									<tr class="phase_details">\
+										<th>行綠</th>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+									</tr>\
+									<tr class="phase_details">\
+										<th>行綠閃</th>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+									</tr>\
+									<tr class="phase_details">\
+										<th>最小綠</th>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+									</tr>\
+									<tr class="phase_details">\
+										<th>最大綠</th>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+									</tr>\
+								</tbody>\
+							</table>\
+							\
+						</td>\
+					</tr>\
+				');
+
+				// script
+				var tp=ui.find('div.bootstrap-timepicker>input').css('font-size','14pt').timepicker({
+					minuteStep: 60,
+					showSeconds: false,
+					showMeridian: false,
+					defaultTime: 'current'
+				});
+				if(data && data.setTime) tp.timepicker('setTime',data.setTime);
+				ui.find('tr.phase_details>td>input').val(0);
+				ui.find('tr.phase_overview>td>input').css({backgroundColor:'#f9f9f9'}).val(0);
+				ui.find('th').css({fontWeight:'bold',color:'darkgreen'});
+				ui.find('.phase_overview input').css({textAlign:'center',color:'#0080FF'});
+				ui.find('.phase_details input').css({textAlign:'center',color:'#008080'});
+				ui.find('.display-btn').click(function(e){
+					console.log(e,$(this).text());
+					if($(this).text()=='＋'){
+						$(this).text('－');
+					}
+					else{
+						$(this).text('＋');
+					}
+				});
+
+				return ui;
+			};
+
 			// 展示資料(可以刪除)
 				// var i=0;
-				for(var i=0;i<2;i++){
-					$('\
-						<tr>\
-							<th style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:middle;">'+( i<10 ? '0'+i+':00' : i+':00' )+'</th>\
-							<td style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:middle;width:150px;">\
-								<select style="width:140px;font-size:12pt;font-weight:bold;">\
-									<option selected="selected">普通二時相</option>\
-									<option>閃黃燈</option>\
-								</select>\
-							</td>\
-							<td style="padding:0px;">\
-								<table style="width:100%;margin:0px;height:100%;">\
-									<tbody>\
-										<tr>\
-											<th onclick="console.log(a=this);$(this).parent().parent().find(\'.phase_details\').toggle();">+</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td>\
-										</tr>\
-										<!--總攬-->\
-										<tr class="phase_overview">\
-											<th></th>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										</tr>\
-										<!--細項-->\
-										<tr class="phase_details">\
-											<th></th>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										</tr>\
-										<tr class="phase_details">\
-											<th></th>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										</tr>\
-										<tr class="phase_details">\
-											<th></th>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										</tr>\
-										<tr class="phase_details">\
-											<th></th>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										</tr>\
-										<tr class="phase_details">\
-											<th></th>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										</tr>\
-										<tr class="phase_details">\
-											<th></th>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-											<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										</tr>\
-									</tbody>\
-								</table>\
-								\
-							</td>\
-						</tr>\
-					').appendTo(qmap.find('table.table.mainbody tbody'));
+				for(var i=0;i<3;i++){
+					create_tr_ui( { setTime: i<10 ? '0'+i+':00' : i+':00' } ).appendTo(qmap.find('table.table.mainbody>tbody'));
 				};
-
-			// 展示資料(可以刪除)
-				// $('<table class="table table-striped table-bordered">\
-				// 	<tbody>\
-				// 		<tr class="data_header">\
-				// 			<th style="width:80px;"></th>\
-				// 			<th style="text-align:center;font-size:14pt;font-weight:bold;" colspan="2">定時時制</th>\
-				// 			<th style="text-align:center;width:45%;font-size:14pt;font-weight:bold;">優先號誌</th>\
-				// 		</tr>\
-				// 		<tr class="data_header">\
-				// 			<th style="text-align:center;vertical-align:middle;"><div style="position:relative;height:40px;"><b style="position:absolute;top:0px;right:0px;">控制策略</b><b style="position:absolute;bottom:0px;left:0px;">起始時間</b></div></th>\
-				// 			<th class="thead0" style="vertical-align:middle;width:100px;font-size:14pt;font-weight:bold;">時相名稱</th>\
-				// 			<th class="thead0" style="padding:0px;">\
-				// 				<table style="width:100%;margin:0px;">\
-				// 					<tbody>\
-				// 						<tr>\
-				// 							<td colspan="4" style="font-size:14pt;font-weight:bold;">分相時間</td>\
-				// 						</tr>\
-				// 						<tr>\
-				// 							<td style="font-size:14pt;font-weight:bold;">1</td>\
-				// 							<td style="font-size:14pt;font-weight:bold;">2</td>\
-				// 							<td style="font-size:14pt;font-weight:bold;">3</td>\
-				// 							<td style="font-size:14pt;font-weight:bold;">4</td>\
-				// 						</tr>\
-				// 					</tbody>\
-				// 				</table>\
-				// 			</th>\
-				// 			<th class="thead1" style="padding:0px;">\
-				// 				<table style="width:100%;margin:0px;table-layout:fixed;">\
-				// 					<tbody>\
-				// 						<tr>\
-				// 							<td colspan="2">1</td>\
-				// 							<td colspan="2">2</td>\
-				// 							<td colspan="2">3</td>\
-				// 							<td colspan="2">4</td>\
-				// 						</tr>\
-				// 						<tr>\
-				// 							<td>Max</td>\
-				// 							<td>Mix</td>\
-				// 							<td>Max</td>\
-				// 							<td>Mix</td>\
-				// 							<td>Max</td>\
-				// 							<td>Mix</td>\
-				// 							<td>Max</td>\
-				// 							<td>Mix</td>\
-				// 						</tr>\
-				// 					</tbody>\
-				// 				</table>\
-				// 			</th>\
-				// 		</tr>\
-				// 	</tbody>\
-				// </table>\
-				// ').insertAfter(qmap.find('a.data_header_insert_point'));		// 插入點
-
-				// for(var i=23;i>=0;i-=1){
-				// 	$('\
-				// 		<tr class="data_row"><td style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:middle;">'+( i<10 ? '0'+i : i )+':00</td>\
-				// 		<td>\
-				// 			<select style="width:150px;font-size:12pt;font-weight:bold;">\
-				// 				<option selected="selected">普通二時相</option>\
-				// 				<option>閃黃燈</option>\
-				// 			</select>\
-				// 		</td>\
-				// 		<td style="padding:0px;height:40px;">\
-				// 			<table style="width:100%;margin:0px;height:100%;">\
-				// 				<tbody>\
-				// 					<tr>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 					</tr>\
-				// 				</tbody>\
-				// 			</table>\
-				// 		</td>\
-				// 		<td style="padding:0px;height:40px;">\
-				// 			<table style="width:100%;margin:0px;height:100%;">\
-				// 				<tbody>\
-				// 					<tr>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 						<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;" /></td>\
-				// 					</tr>\
-				// 				</tbody>\
-				// 			</table>\
-				// 		</td></tr>\
-				// 	').insertAfter(qmap.find('tr.data_header:last'));		// 插入點
-				// };
-		
-				// // 亂數資料
-				// var tinput=$('table.table input').css({textAlign:'center',color:'blue'});
-				// for(var i=0;i<tinput.length;i++){
-				// 	$(tinput[i]).val(Math.round(Math.random()*40+20));
-				// };
 
 			// 樣式&特效
 				$('table.table td').css({textAlign:'center'});
 				$('table.table th').css({textAlign:'center'});
+				$('table.table tr.phase_details th').css({textAlign:'left', backgroundColor: '#f9f9f9'});
 				$('#centerview').hide().fadeIn(300);
-
-			// 開發
-				// $('table tr.data_row').hover(function(e){
-				// 	console.log(e);
-				// },function(e){
-				// 	console.log(e);
-				// });
 		};
 		var bt5=function(){
 
@@ -524,8 +498,8 @@
 							</tbody>\
 						</table>\
 						<div style="height:100px;text-align:right">\
-							<span class="btn btn-large">放棄</span>\
-							<span class="btn btn-large">保存</span>\
+							<span class="btn btn-large btn-inverse">放棄</span>\
+							<span class="btn btn-large btn-inverse">保存</span>\
 						</div>\
 					</div>\
 				');
@@ -652,6 +626,14 @@
 
 		.popover {
 			z-index: 100 !important;
+		}
+
+		tr.phase_details {
+			display: none;
+		}
+
+		table.table thead {
+			background-color: #f9f9f9;
 		}
 	</style>
 </body>
