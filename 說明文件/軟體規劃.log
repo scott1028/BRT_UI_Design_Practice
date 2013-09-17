@@ -157,3 +157,18 @@ BRT績效(14)
 
 ---------------------------------------資料規劃---------------------------------------
 
+users:Table {
+	id:int
+	name:string
+	permission_level:int
+	email:string
+	phone:string
+}
+
+devices:Table {
+	id:int
+	name:string
+	type:string
+	lat:float
+	lng:float
+}

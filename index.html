@@ -114,6 +114,32 @@
 								</div>
 							</div>
 						</div>
+
+						<hr style="margin:5px;vertical-align:middle;border: 1px solid #DDDDDD;" />
+
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<div style="color:gold;" class="accordion-toggle btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">
+									事故建立
+								</div>
+							</div>
+						</div>
+
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<div style="color:gold;" class="accordion-toggle btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">
+									帳號帳號管理
+								</div>
+							</div>
+						</div>
+
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<div style="color:gold;" class="accordion-toggle btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">
+									路口設備管理
+								</div>
+							</div>
+						</div>
 					</div>
 					<div style="text-align:center;vertical-align:middle;">
 						插圖 or 動畫
@@ -134,6 +160,16 @@
 
 	<script>
 		var qmap;
+
+		var loginUI=function(){
+			var loginUI=$('<div class="btn btn-danger" style="width:20px;height:40px;position:fixed;z-index:100;margin-left:10px;bottom:20px;left:0px;">登<br>入</div>');
+			loginUI.appendTo($('body'));
+			loginUI.click(function(e){
+
+			});
+		};
+		loginUI();
+
 		var bt1=function(){
 
 			$('ul.nav').empty()
