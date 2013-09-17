@@ -169,6 +169,45 @@ $.prototype.buildGoogleMap=function createMap(myOptions) {
 		return stpl;
 	};
 
+	// 建立客製化的首頁的路段線段(採 Array)
+	this.add_section_polyline_by_array=function(path,color,draw_it_right_now){
+		if(draw_it_right_now==undefined) draw_it_right_now=true;
+		var color=color || 'lightgreen';
+		var stpl=new Object;
+
+		// 線條連續經緯度
+		var myPaths=[];for(var i in path){myPaths.push(new google.maps.LatLng(path[i][0],path[i][1]));};
+
+		// Section 畫邊框
+		var section_line_border = new google.maps.Polyline({
+			path: myPaths,
+			strokeColor: "#000000",
+			strokeOpacity: 1,
+			strokeWeight: 6,
+			zIndex: 1
+		});
+
+		// 畫線段
+		var section_line = new google.maps.Polyline({
+			path: myPaths,
+			strokeColor: color,
+			strokeOpacity: 1,
+			strokeWeight: 5,
+			zIndex: 2
+		});
+
+		stpl.section_body=section_line;
+		stpl.section_border=section_line_border;
+
+		if(draw_it_right_now){
+			stpl.section_body.setMap(this.map);
+			stpl.section_border.setMap(this.map);
+		}
+
+		return stpl;
+	};
+
+
 	// 通用型別的 Marker，點選後會執行 fn(data) 的標記！
 	this.addCommonMarker=function(fn,data,icon,draggable,click_handle){
 		var draggable=draggable||false;
