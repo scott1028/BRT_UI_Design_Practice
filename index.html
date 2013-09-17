@@ -161,14 +161,15 @@
 	<script>
 		var qmap;
 
-		var loginUI=function(){
+		// 登入
+		var bt0=function(){
 			var loginUI=$('<div class="btn btn-danger" style="width:20px;height:40px;position:fixed;z-index:100;margin-left:10px;bottom:20px;left:0px;">登<br>入</div>');
 			loginUI.appendTo($('body'));
 			loginUI.click(function(e){
 
 			});
 		};
-		loginUI();
+		bt0();
 
 		var bt1=function(){
 
@@ -231,6 +232,7 @@
 
 			$('#centerview').hide().fadeIn(300);
 		};
+
 		var bt3=function(){
 
 			$('ul.nav').empty()
@@ -257,6 +259,7 @@
 
 			$('#centerview').hide().fadeIn(300);
 		};
+
 		var bt4=function(){
 
 			// 基本版型
@@ -540,6 +543,7 @@
 				});
 				$('#centerview').hide().fadeIn(300);
 		};
+
 		var bt5=function(){
 
 			// 基本版頭
@@ -617,6 +621,7 @@
 				$('table.table th').css({textAlign:'center'});
 				$('#centerview').hide().fadeIn(300);
 		};
+
 		var bt6=function(){
 
 			$('ul.nav').empty()
@@ -628,6 +633,7 @@
 
 			$('#centerview').hide().fadeIn(300);
 		};
+
 		var bt7=function(){
 
 			$('ul.nav').empty()
@@ -638,6 +644,18 @@
 			qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 
 			$('#centerview').hide().fadeIn(300);
+		};
+
+		// 表關聯
+		var buttonsTable={
+			登入:bt0,
+			即時狀態:bt1,
+			號誌控制邏輯:bt2,
+			控制設備資訊:bt3,
+			路口參數:bt4,
+			路口排程:bt5,
+			BRT績效:bt6,
+			事故顯示:bt7,
 		};
 
 		$(document).ready(function(e){
