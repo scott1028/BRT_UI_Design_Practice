@@ -303,7 +303,7 @@
 				var ui=$('\
 					<tr>\
 						<th style="width:20px;text-align:center;padding-top:24px;"><input type="checkbox" style="margin:2px;" /></th>\
-						<th style="width:20px;text-align:center;padding-top:22px;"><input style="width:20px;" value=1 /></th>\
+						<th style="width:20px;text-align:center;padding-top:22px;"><input type="number" style="width:15px;height:18px;" value=1 /></th>\
 						<th style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:top;padding-top:20px;width:40px;">\
 							<div class="input-append bootstrap-timepicker">\
 								<input type="text" class="input-small" style="width:50px;">\
@@ -320,7 +320,7 @@
 							<table style="width:100%;margin:0px;height:100%;">\
 								<thead>\
 									<tr>\
-										<th class="display-btn" onclick="console.log(a=this);$(this).parent().parent().parent().find(\'tbody tr.phase_details\').toggle(400);" style="cursor:pointer;width:40px;text-align:center;">＋</th>\
+										<th class="display-btn" onclick="console.log(a=this);$(this).parent().parent().parent().find(\'tbody tr.phase_details\').toggle(150);" style="cursor:pointer;width:30px;text-align:center;">＋</th>\
 										<th style="color:red !important;">分1</th>\
 										<th style="color:red !important;">分2</th>\
 										<th style="color:red !important;">分3</th>\
@@ -334,7 +334,7 @@
 									</tr>\
 									<!--總攬-->\
 									<tr class="phase_overview">\
-										<td style="color:#0080FF;font-weight:bold;font-size:8pt;">總秒數</td>\
+										<td style="color:#0080FF;font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;">總秒數</td>\
 										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -385,47 +385,47 @@
 									</tr>\
 									<tr class="phase_details">\
 										<th>行綠</th>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 									</tr>\
 									<tr class="phase_details">\
 										<th>行綠閃</th>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 									</tr>\
 									<tr class="phase_details">\
 										<th>最小綠</th>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 									</tr>\
 									<tr class="phase_details">\
 										<th>最大綠</th>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
-										<td style="padding:0px;"><input style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+										<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 									</tr>\
 								</tbody>\
 							</table>\
@@ -448,7 +448,6 @@
 				ui.find('.phase_overview input').css({textAlign:'center',color:'#0080FF'});
 				ui.find('.phase_details input').css({textAlign:'center',color:'#008080'});
 				ui.find('.display-btn').click(function(e){
-					console.log(e,$(this).text());
 					if($(this).text()=='＋'){
 						$(this).text('－');
 					}
@@ -495,7 +494,14 @@
 			// 樣式&特效
 				$('table.table td').css({textAlign:'center'});
 				$('table.table th').css({textAlign:'center'});
-				$('table.table tr.phase_details th').css({textAlign:'left', backgroundColor: '#f9f9f9'});
+				$('table.table tr.phase_details th').css({
+					textAlign:'center',
+					backgroundColor: '#f9f9f9',
+					fontWeight:'bold',
+					fontSize:'8pt',
+					paddingLeft:0,
+					paddingRight:0
+				});
 				$('#centerview').hide().fadeIn(300);
 		};
 		var bt5=function(){
@@ -726,6 +732,10 @@
 			[24.142470000000003,120.67958000000002],
 			[24.139380000000003,120.68310000000001]
 		];
+
+		// 車站
+
+		// 路口
 
 		$(document).ready(function(e){
 			qmap.add_section_polyline_by_array(path);
