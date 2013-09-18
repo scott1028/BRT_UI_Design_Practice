@@ -8,7 +8,8 @@ $.prototype.buildGoogleMap=function createMap(myOptions) {
 	this.markers=new Object;					// 採 update 方式 ( vd marker )
 	this.controls=new Object;
 
-	this.css('min-height','250px');
+	this.css('min-height','400px');
+	this.css('height','600px');
 	var myOptions = myOptions ? myOptions:{
 		// maxZoom: 12,
 		// minZoom: 11,
