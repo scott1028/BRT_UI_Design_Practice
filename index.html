@@ -688,7 +688,7 @@
 
 		// init
 		$(document).ready(function(e){
-			bt1();
+			buttonsTable['即時狀態'].call(this);
 		});
 	</script>
 
@@ -777,6 +777,16 @@
 			-webkit-appearance: none;
 			margin: 0;
 		}
+
+		/* 將 Time Picker Style 略做修改 */
+		div.bootstrap-timepicker-widget.dropdown-menu {
+			zoom: 1.4;
+		}
+
+		div.bootstrap-timepicker-widget.dropdown-menu table td {
+			border:none !important;
+		}
+
 	</style>
 
 	<script>

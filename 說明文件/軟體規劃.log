@@ -166,10 +166,55 @@ users:Table {
 	phone:string
 }
 
+# master device table
 devices:Table {
 	id:int
+	lcn:int
 	name:string
 	type:string
 	lat:float
 	lng:float
 }
+
+# one to one
+devices_data_now {
+	int:int
+	lcn:int
+	name:string
+	status:string
+	light_step:int
+	direction:string
+	second_remainning
+	circle:int
+	priority_flag:int
+	data_time:datetime
+}
+
+# one to one
+devices_data_history {
+	int:int
+	lcn:int
+	name:string
+	status:string
+	light_step:int
+	direction:string
+	second_remainning
+	circle:int
+	priority_flag:int
+	data_time:datetime
+}
+
+# one to many
+devices_data_1m~Nm {
+	int:int
+	lcn:int
+	name:string
+	status:string
+	light_step:int
+	direction:string
+	second_remainning
+	circle:int
+	priority_flag:int
+	data_time:datetime
+}
+
