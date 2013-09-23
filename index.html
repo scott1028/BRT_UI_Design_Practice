@@ -26,8 +26,13 @@
 	<!--ExtJS-->
 	<link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
     <script type="text/javascript" src="extjs/ext-all.js"></script>
+
+    <!--Calculate-->
+    <script src="calculate.js"></script>
 </head>
 <body style="height:100%;padding:0px;margin:0px;overflow-y:scroll;min-width:1024px;width:1024px;margin:auto;">
+	<!-- 上方的 modal 物件 -->
+	<div class="top_stretch" style="position:fixed;width:100%;background-color:silver;opacity:0.5;z-index:100;"></div>
 	<table style="width:100%;height:100%;" border="0">
 		<tbody>
 			<tr>
@@ -137,6 +142,8 @@
 			</tr>
 		</tbody>
 	</table>
+	<hr class="bottom_stretch" style="border-width:0px;" />
+	<a class="bottom_modal_point" style="display:none;"></a>
 
 	<script>
 		var qmap;
@@ -502,6 +509,58 @@
 				');
 
 				// script
+				ui.find('input[type=number]').click(function(e){ // 當 input:number 被點選的時候
+					// console.log(e);
+					$('div.bottom_spinner').remove();
+					var spinner=$('<div class="bottom_spinner"></div>').css({
+						width:'100%',
+						height:'200px',
+						position:'fixed',
+						bottom:0,
+						left:0,
+						backgroundColor:'#303030',
+						zIndex:101,
+					});
+
+					var close_bt=$('<div>X</div>').css({
+						borderRadius:35,
+						position:'absolute',
+						backgroundColor:'white',
+						width:50,
+						height:50,
+						textAlign:'center',
+						lineHeight:'50px',
+						boxShadow:'#303030 0px 0px 10px inset',
+						border:'5px solid #303030',
+						right:25,
+						top:-25,
+						cursor:'pointer'
+					}).click(function(e){
+						$(this).parent().animate({
+							bottom:-200
+						},300,'swing',function(ee){
+							$('div.top_stretch').css('height',0);
+							$('hr.bottom_stretch').css({borderWidth:0});
+							$(this).remove();
+						});
+					}).hover(function(e){
+						$(e.target).css('background-color','yellow');
+					},function(e){
+						$(e.target).css('background-color','white');
+					});
+
+					close_bt.appendTo(spinner);
+
+					//spinner.append();
+
+					spinner.css('bottom','-200px').insertAfter($('a.bottom_modal_point')).animate({
+						bottom:0
+					},300,'swing',function(ee){
+						$('div.top_stretch').css('height','100%');
+						$('hr.bottom_stretch').css({borderWidth:80});
+					});
+				});
+
 				var tp=ui.find('div.bootstrap-timepicker>input').css('font-size','14pt').timepicker({
 					minuteStep: 10,
 					showSeconds: false,
