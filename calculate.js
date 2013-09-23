@@ -4,7 +4,7 @@ var getYearFirstDate=function(y,m,d){
 	a2=numbersOfMonth(y,m);
 
 	// 防呆
-	if(y<=0 || m<=0 || d<=0 || d>a2) throw('數字有誤!');
+	if(y<=0 || m<=0 || d<=0 || d>a2 || m>12) throw('數字有誤!');
 
 	var W=[6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
 	var y, m, d, w;
@@ -29,7 +29,7 @@ var getYearFirstDate=function(y,m,d){
 	console.log( '此日為星期幾?( 1~6：周一 ~ 周六、0：日 )->', a1 );
 	console.log( '此月計天數共?', a2 );
 
-	return { firstDay:a1 , MonthDays:a2 };
+	return { firstDay:a1 , monthDays:a2 };
 };
 
 // 求出當前月天數

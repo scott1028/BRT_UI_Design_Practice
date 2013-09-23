@@ -308,7 +308,7 @@
 				qmap.append('\
 					<div style="position:relative;z-index:-1;">\
 					<span class="btn btn-success" style="float:left;margin:3px;font-size:12pt;">新增時段</span>\
-					<span class="btn btn-success lcn_calculate" style="float:right;margin:3px;font-size:12pt;" data-toggle="button">行事曆</span>\
+					<!--span class="btn btn-success lcn_calculate" style="float:right;margin:3px;font-size:12pt;" data-toggle="button">行事曆</span-->\
 					<ul class="nav nav-tabs">\
 						<li class="active">\
 							<a style="cursor: pointer;" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');"><span style="color:#303030;">平日(6)</span></a>\
@@ -325,13 +325,6 @@
 					</ul>\
 					</div>\
 				');
-
-				qmap.append('\
-					<div style="display:table;position:absolute;width:400px;right:0px;display:none;" class="lcn_calculate">\
-						<div style="text-align:center;display:table-cell; vertical-align:middle;"><img draggable="false" src="calculate_sample.png" style="z-index:100;"></div>\
-						<div style="text-align:center;display:table-cell; vertical-align:middle;"><img draggable="false" src="calculate_sample.png" style="z-index:100;"></div>\
-					</div>\
-				');
 				
 				qmap.append(
 					'<div style="height:100%;padding:10px;padding-top:10px;">\
@@ -342,8 +335,7 @@
 								<option>五權路口</option>\
 							</select>\
 						</label>\
-						<label style="float:left;margin-right:10px;font-size:14pt;font-weight:bold;">日　　期　<input type="date" value="2013-09-12" style="font-size:14pt;font-weight:bold;" /></label>\
-						\
+						<a class="calender_insert_pointer" style="display:none;"></a>\
 						<a class="data_header_insert_point" style="display:none;"></a>\
 						\
 						<div style="height:100px;text-align:right;clear:both;">\
@@ -371,6 +363,82 @@
 						<tbody></tbody>\
 					</table>\
 				').insertAfter(qmap.find('a.data_header_insert_point'));		// 插入點;
+
+			// 萬年曆,萬年曆的資料填寫程式
+			var create_calendar_ui=function(){
+				var calendar_container=$('<div class="calendar_container" style="clear:both;width:100%;position:relative;height:220px;margin-bottom:10px;"></div>');
+				calendar_container.append('\
+					<table class="table-bordered table table-striped table-hover scalendar sc1" style="width: 49%;height:220px;float:left;margin-left:0px;border-collapse:collapse"><tbody>\
+						<tr><th class="btn-info" style="cursor:pointer;"><span class="icon-backward" style="width:20px;height:20px;"></span></th><th colspan="6" class="theader btn-warning"></th></tr>\
+						<tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+					</tbody></table>\
+				');
+				calendar_container.append('\
+					<table class="table-bordered table table-striped table-hover scalendar sc2" style="width: 49%;height:200px;float:right;margin-right:0px;border-collapse:collapse"><tbody>\
+						<tr><th colspan="6" class="theader btn-warning"></th><th class="btn-info" style="cursor:pointer;"><span class="icon-forward" style="width:20px;height:20px;"></span></th></tr>\
+						<tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+						<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
+					</tbody></table>\
+				');
+
+				return calendar_container;
+			};
+			create_calendar_ui.create_calendar=function(year,m){
+				var cal=getYearFirstDate(year,m,1);
+				var cal_tds=$('table.scalendar.sc1').find('td').empty();
+				var day=0;
+				for(var i=0;i<cal_tds.length;i++){
+					if(cal_tds[i].className=='d'+cal.firstDay && day==0){
+						day+=1;
+						$(cal_tds[i]).text(day);
+					};
+
+					if(day>0){
+						$(cal_tds[i]).text(day);
+						day+=1;
+					}
+
+					if(day>cal.monthDays) break;
+				};
+
+				$('table.scalendar.sc1').find('th.theader').text(year+'-'+( m<10 ? '0'+m : m) );
+
+				var _m = ( m+1>12 ? m+1-12 : m+1 );
+				var _year= ( m+1>12 ? year+1 : year );
+
+				var cal=getYearFirstDate(_year,_m,1);
+				var cal_tds=$('table.scalendar.sc2').find('td').empty();
+				var day=0;
+				for(var i=0;i<cal_tds.length;i++){
+					if(cal_tds[i].className=='d'+cal.firstDay && day==0){
+						day+=1;
+						$(cal_tds[i]).text(day);
+					};
+
+					if(day>0){
+						$(cal_tds[i]).text(day);
+						day+=1;
+					}
+
+					if(day>cal.monthDays) break;
+				};
+
+				$('table.scalendar.sc2').find('th.theader').text(_year+'-'+(_m<10 ? '0'+_m : _m) );
+			};window.create_calendar=create_calendar_ui.create_calendar;
+
+			// 日曆插入點
+			create_calendar_ui().insertAfter(qmap.find('a.calender_insert_pointer'));
 
 			// 資料列的 UI 設計
 			var create_tr_ui=function(data){
@@ -610,14 +678,14 @@
 				}
 			});
 
-			// 路口行事曆
-			qmap.find('span.btn.lcn_calculate').click(function(e){qmap.find('div.lcn_calculate').toggle()});
-
 			// 展示資料(可以刪除)
 				// var i=0;
 				for(var i=0;i<6;i++){
 					create_tr_ui.create_and_insert( { setTime: i<10 ? '0'+i+':00' : i+':00' } );
 				};
+
+			// 展示資料(假定日曆時間)
+				create_calendar_ui.create_calendar(2014,6);
 
 			// 樣式&特效
 				$('table.table td').css({textAlign:'center'});
@@ -846,6 +914,25 @@
 
 		div.bootstrap-timepicker-widget.dropdown-menu table td {
 			border:none !important;
+		}
+
+		/* 自製日曆的樣式 */
+		table.scalendar td,table.scalendar th {
+			height: 20px !important;
+			font-size: 12pt !important;	
+		}
+		table.scalendar th {
+			color: blue !important;
+			font-weight:bold !important;
+			background-color: #F0F090 !important;
+		}
+		table.scalendar th.theader {
+			color: white !important;
+			font-size: 20pt !important;
+		}
+		table.scalendar td:hover {
+			background-color: lightblue !important;
+			cursor: pointer !important;
 		}
 
 	</style>
