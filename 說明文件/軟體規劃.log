@@ -172,7 +172,7 @@
 ------------------------------------資料規劃(未完)------------------------------------
 
 users:Table {
-	id:int
+	id:int(*)
 	name:string
 	permission_level:int
 	email:string
@@ -181,7 +181,7 @@ users:Table {
 
 # master device & transport & roadsection & station table (或許可以拆分類物件表 + 鍵值表)
 object_tables:Table {
-	id:int
+	id:int(*)
 	lcn:int
 	name:string
 	type:string
@@ -193,7 +193,7 @@ object_tables:Table {
 
 # one to one (誌控制器,AVI,CCTV,VD,觸發點)
 devices_data_now {
-	id:int
+	id:int(*)
 	lcn:int
 	name:string
 	status:string
@@ -212,7 +212,7 @@ devices_data_now {
 
 # one to one (誌控制器,AVI,CCTV,VD,觸發點)
 devices_data_history {
-	id:int
+	id:int(*)
 	lcn:int
 	name:string
 	status:string
@@ -231,7 +231,7 @@ devices_data_history {
 
 # one to many (誌控制器,AVI,CCTV,VD,觸發點)
 devices_data_1m~Nm {
-	id:int
+	id:int(*)
 	lcn:int
 	name:string
 	status:string
@@ -249,7 +249,7 @@ devices_data_1m~Nm {
 
 # one to many
 transport_data_Nm {
-	id:int
+	id:int(*)
 	car_number:string
 	lat:float
 	lnt:float
@@ -261,7 +261,7 @@ transport_data_Nm {
 
 # one to many
 statiton_data_Nm {
-	id:int
+	id:int(*)
 	station_id:int
 	status:string
 	near_bus:string
@@ -269,18 +269,37 @@ statiton_data_Nm {
 	data_time:datetime
 }
 
+# SPCD 其中 priority > TOW
+spcday_tables {
+	id:int(*)
+	lcn:int(*)
+	date_time_begin:datetime
+	date_time_end:datetime
+	segtype_sd:int
+}
+
 # TOW
 segtype_tables {
-	id:int	
+	id:int(*)
+	lcn:int(*)
+	segtype_d1:int
+	segtype_d2:int
+	segtype_d3:int
+	segtype_d4:int
+	segtype_d5:int
+	segtype_d6:int
+	segtype_d0:int
 }
 
 # TOD
 tod_tables {
-	id:int
-}
-
-# SPCD
-spcday_tables {
-	id:int
+	id:int(*)
+	lcn:int(*)
+	plan_id:int(*)
+	segtype_id:int(*)
+	trigger_time:datetime
+	...
+	phase_data
+	...
 }
 
