@@ -179,19 +179,21 @@ users:Table {
 	phone:string
 }
 
-# master device table
-devices:Table {
+# master device & transport & roadsection & station table (或許可以拆分類物件表 + 鍵值表)
+object_tables:Table {
 	id:int
 	lcn:int
 	name:string
 	type:string
-	lat:float
-	lng:float
+	lat:float					<-- if type is transport set null
+	lng:float					<-- if type is transport set null
+	url:string					<-- if type is CCTV set Video Stream URL
+	car_number:string
 }
 
-# one to one
+# one to one (誌控制器,AVI,CCTV,VD,觸發點)
 devices_data_now {
-	int:int
+	id:int
 	lcn:int
 	name:string
 	status:string
@@ -201,11 +203,16 @@ devices_data_now {
 	circle:int
 	priority_flag:int
 	data_time:datetime
+	type:string
+	p1:int
+	p2:int
+	p3:int
+	p4:int
 }
 
-# one to one
+# one to one (誌控制器,AVI,CCTV,VD,觸發點)
 devices_data_history {
-	int:int
+	id:int
 	lcn:int
 	name:string
 	status:string
@@ -214,20 +221,66 @@ devices_data_history {
 	second_remainning
 	circle:int
 	priority_flag:int
+	data_time:datetime
+	type:string
+	p1:int
+	p2:int
+	p3:int
+	p4:int
+}
+
+# one to many (誌控制器,AVI,CCTV,VD,觸發點)
+devices_data_1m~Nm {
+	id:int
+	lcn:int
+	name:string
+	status:string
+	light_step:int
+	direction:string
+	second_remainning
+	circle:int
+	priority_flag:int
+	data_time:datetime
+	p1:int
+	p2:int
+	p3:int
+	p4:int
+}
+
+# one to many
+transport_data_Nm {
+	id:int
+	car_number:string
+	lat:float
+	lnt:float
+	status:string
+	next_station:string					<-- maybe this property use by object_id that will be better.
+	next_stattion_travel_time:int
 	data_time:datetime
 }
 
 # one to many
-devices_data_1m~Nm {
-	int:int
-	lcn:int
-	name:string
+statiton_data_Nm {
+	id:int
+	station_id:int
 	status:string
-	light_step:int
-	direction:string
-	second_remainning
-	circle:int
-	priority_flag:int
+	near_bus:string
+	near_bus_traveltime:int
 	data_time:datetime
+}
+
+# TOW
+segtype_tables {
+	id:int	
+}
+
+# TOD
+tod_tables {
+	id:int
+}
+
+# SPCD
+spcday_tables {
+	id:int
 }
 
