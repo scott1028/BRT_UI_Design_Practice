@@ -95,8 +95,10 @@ var bt4=function(){
 		');
 	
 		// 日立的右鍵選單
-		var calendar_contextmenu_remove_handle;calendar_container.find('td').contextmenu(function(e){
-			console.log(e);
+		var calendar_contextmenu_remove_handle;calendar_container.contextmenu(function(e){
+			// console.log(e);
+
+			if(e.target.textContent=='') return false;
 
 			$('div.calendar_contextmenu').remove();
 
@@ -111,23 +113,21 @@ var bt4=function(){
 				$('div.calendar_contextmenu').remove();
 			});
 
-			var calendar_contextmenu=$('<div class="calendar_contextmenu"></div>').css({
+			var calendar_contextmenu=$('<div class="btn btn-danger calendar_contextmenu"></div>').css({
 				width:100,
-				backgroundColor:'lightgreen',
 				position:'fixed',
 				left:e.clientX,
 				top:e.clientY,
 				display:'none',
-				border:'2px solid darkgreen',
-				opacity:0.9,
 				textAlign:'center',
 				fontWeight:'bold',
 				fontSize:18,
-				borderRadius:5
+				borderRadius:5,
+				boxShadow:'3px 3px 10px #303030'
 			})
 			.append(
-				$('<div style="width:100%;cursor:pointer;" onmouseover="$(this).css(\'background-color\',\'lightyellow\');" onmouseout="$(this).css(\'background-color\',\'transparent\');">設定時段</div>')
-			).appendTo($('body')).toggle(250);
+				$('<div style="width:100%;cursor:pointer;">設定時段</div>')
+			).appendTo($('body')).toggle(200);
 
 			return false;
 		})
@@ -161,7 +161,7 @@ var bt4=function(){
 		var day=1;
 		for(var i=0;i<cal_tds.length;i++){
 
-			console.log(cell_index);
+			// console.log(cell_index);
 
 			if(cal_tds[i].className=='d'+cal.firstDay && day==1){
 				$(cal_tds[i]).text(day).attr('date',year+'-'+( m<10 ? '0'+m : m )+'-'+( day<10 ? '0'+day : day ) ).attr('index',cell_index);
