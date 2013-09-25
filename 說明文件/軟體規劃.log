@@ -303,3 +303,8 @@ tod_tables {
 	...
 }
 
+struct aa {
+	int test(){
+		return 200;		// 替代方案(包在struct)
+	}
+};

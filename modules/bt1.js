@@ -7,7 +7,7 @@ var bt1=function(){
 	$('table td.bottomInfo').show();
 	qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
 	qmap.addInfo(
-		'<div class="btn-group btn-group-vertical">\
+		'<div class="btn-group btn-group-vertical" style="width:100%;">\
 			<div class="btn btn-success">快捷巴士</div>\
 			<div class="btn btn-success">快捷巴士站</div>\
 			<div class="btn btn-success">優先號誌</div>\

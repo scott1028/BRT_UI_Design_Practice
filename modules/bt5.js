@@ -52,7 +52,7 @@ var bt5=function(){
 				<tr>\
 					<th style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:middle;">'+( i<10 ? '0'+i : i )+':00</th>\
 					<td>'+(Math.random() > 0.5 ? '<span class="btn btn-warning">定時時制</span>' : '<span class="btn btn-danger">優先號誌</span>')+'</td>\
-					<td>'+(Math.random() > 0.5 ? '<span class="btn btn-warning">定時時制</span>' : '<span class="btn btn-danger">優先號誌</span>')+'</td>\
+					<td>'+(Math.random() > 0.5 ? '<span class="btn btn-inverse">路口手操</span>' : '<span class="btn btn-danger">優先號誌</span>')+'</td>\
 					<td>'+(Math.random() > 0.5 ? '<span class="btn btn-warning">定時時制</span>' : '<span class="btn btn-danger">優先號誌</span>')+'</td>\
 				</tr>\
 			');
