@@ -49,6 +49,7 @@ var bt4=function(){
 
 		$('\
 			<div style="clear:both;text-align:right;margin:5px;">\
+				<span class="btn btn-danger btn-showMaxGandMinG" style="float:left;" data-toggle="button">顯示最大綠與最小綠</span>\
 				<span class="btn btn-deltime">刪除選取</span>\
 				<span class="btn btn-addtime">新增時間</span>\
 			</div>\
@@ -201,10 +202,13 @@ var bt4=function(){
 		// 紀錄 flag, 之後要用來操作用
 		bt4.year_mon={ year:year, month:m };
 
-		// 當顯示日期建立好後, 設定日期拉選的Script
+		// 當顯示日期建立好後, 設定日期拉選的 Script
+		$('table.scalendar td:not([date=])').css('position','relative').unbind('mousedown');		// 要取消之前的, 不然會重複觸發
 		$('table.scalendar td:not([date=])').mousedown(function(e){
 			var start_idx,end_idx;
 			start_idx=parseInt($(e.currentTarget).attr('index'));
+
+			$('table.scalendar td:not([date=])').unbind('mouseup');
 
 			var _hh;$('table.scalendar td:not([date=])').mouseup(_hh=function(e){
 
@@ -221,16 +225,24 @@ var bt4=function(){
 				// 設定日期
 				if(e.button==0){
 					for(var i=start_idx;i<=end_idx;i++){
-						$('table.scalendar td[index='+i+']:not([date=])').css({
-							backgroundColor:'lightgreen'
-						});
+						var _t=$('table.scalendar td[index='+i+']:not([date=])');
+						if(_t.find('div').length>0) _t.find('div').remove();
+						_t.append(
+							$('<div></div>').css({
+								width:'100%',
+								height:'100%',
+								backgroundColor:'lightgreen',
+								position:'absolute',
+								top:0,
+								left:0,
+								opacity:0.5
+							})	
+						);
 					}
 				}
 				else if(e.button==2){
 					for(var i=start_idx;i<=end_idx;i++){
-						$('table.scalendar td[index='+i+']:not([date=])').css({
-							backgroundColor:''
-						});
+						$('table.scalendar td[index='+i+']:not([date=])').find('div').remove();
 					}
 				}
 			});
@@ -251,13 +263,14 @@ var bt4=function(){
 		var ui=$('\
 			<tr>\
 				<th style="width:20px;text-align:center;padding-top:24px;"><input type="checkbox" style="margin:2px;" /></th>\
-				<th style="width:20px;text-align:center;padding-top:22px;"><input type="number" style="width:15px;height:18px;" value=1 /></th>\
+				<th style="width:20px;text-align:center;padding-top:20px;"><span class="btn btn-warning btn-operation">定</span></th>\
 				<th style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:top;padding-top:20px;width:40px;">\
 					<div class="input-append bootstrap-timepicker">\
 						<input type="text" class="input-small" style="width:50px;">\
 						<span class="add-on"><i class="icon-time"></i></span>\
 					</div>\
 				</th>\
+				<th style="width:20px;text-align:center;padding-top:22px;"><input type="number" style="width:15px;height:18px;" value=1 /></th>\
 				<td style="color:#505050;font-size:18pt;font-weight:bold;vertical-align:top;width:150px;padding-top:20px;text-align:center;">\
 					<select style="width:130px;font-size:12pt;font-weight:bold;">\
 						<option selected="selected">普通二時相</option>\
@@ -268,15 +281,17 @@ var bt4=function(){
 					<table style="width:100%;margin:0px;height:100%;">\
 						<thead>\
 							<tr>\
-								<th class="display-btn" onclick="console.log(a=this);$(this).parent().parent().parent().find(\'tbody tr.phase_details\').toggle(150);" style="cursor:pointer;width:30px;text-align:center;">＋</th>\
+								<th class="display-btn" style="cursor:pointer;width:30px;text-align:center;">＋</th>\
 								<th style="text-align:center;color:red !important;">分1</th>\
 								<th style="text-align:center;color:red !important;">分2</th>\
 								<th style="text-align:center;color:red !important;">分3</th>\
 								<th style="text-align:center;color:red !important;">分4</th>\
 								<th style="text-align:center;color:red !important;">分5</th>\
 								<th style="text-align:center;color:red !important;">分6</th>\
+								<!--\
 								<th style="text-align:center;color:red !important;">分7</th>\
 								<th style="text-align:center;color:red !important;">分8</th>\
+								-->\
 								<th style="text-align:center;color:red !important;">週期</th>\
 								<th style="text-align:center;color:red !important;">延遲</th>\
 							</tr>\
@@ -291,8 +306,10 @@ var bt4=function(){
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								<!--\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								-->\
 							</tr>\
 						</thead>\
 						<tbody>\
@@ -305,8 +322,10 @@ var bt4=function(){
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								<!--\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								-->\
 							</tr>\
 							<!--細項-->\
 							<tr class="phase_details">\
@@ -317,8 +336,10 @@ var bt4=function(){
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								<!--\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								-->\
 							</tr>\
 							<tr class="phase_details">\
 								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">黃</th>\
@@ -328,8 +349,10 @@ var bt4=function(){
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								<!--\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								-->\
 							</tr>\
 							<tr class="phase_details">\
 								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">行綠</th>\
@@ -339,8 +362,10 @@ var bt4=function(){
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								<!--\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								-->\
 							</tr>\
 							<tr class="phase_details">\
 								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">行綠閃</th>\
@@ -350,10 +375,12 @@ var bt4=function(){
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								<!--\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								-->\
 							</tr>\
-							<tr class="phase_details">\
+							<tr class="phase_details phase_details-showMaxGandMinG">\
 								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">最小綠</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -361,10 +388,12 @@ var bt4=function(){
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								<!--\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								-->\
 							</tr>\
-							<tr class="phase_details">\
+							<tr class="phase_details phase_details-showMaxGandMinG">\
 								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">最大綠</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -372,8 +401,10 @@ var bt4=function(){
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								<!--\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
+								-->\
 							</tr>\
 						</tbody>\
 					</table>\
@@ -381,6 +412,18 @@ var bt4=function(){
 				</td>\
 			</tr>\
 		');
+		ui.find('.btn-operation').click(function(e){
+			switch(e.target.textContent){
+				case '定':
+					$(e.target).text('優').removeClass('btn-warning').addClass('btn-danger');
+					break;
+				case '優':
+					$(e.target).text('定').removeClass('btn-danger').addClass('btn-warning');
+					break;
+				default:
+					break;
+			}
+		});
 
 		// script
 		/*
@@ -452,9 +495,16 @@ var bt4=function(){
 		ui.find('.display-btn').click(function(e){
 			if($(this).text()=='＋'){
 				$(this).text('－');
+				$(this).parent().parent().parent().find('tbody tr.phase_details').show(150);
 			}
 			else{
 				$(this).text('＋');
+				if($('.btn-danger.btn-showMaxGandMinG').hasClass('active')){
+					$(this).parent().parent().parent().find('tbody tr.phase_details:not(.phase_details-showMaxGandMinG)').hide(100);
+				}
+				else{
+					$(this).parent().parent().parent().find('tbody tr.phase_details').hide(100);	
+				}
 			}
 		});
 
@@ -484,6 +534,18 @@ var bt4=function(){
 		}
 	});
 
+	// 顯示最大綠最小綠按鈕 script
+	qmap.find('.btn-danger.btn-showMaxGandMinG').click(function(e){
+		var _tr=qmap.find('tbody>tr.phase_details-showMaxGandMinG');
+		if($('.btn-danger.btn-showMaxGandMinG').hasClass('active')){
+			var __tr=qmap.find('tbody>tr.phase_details-showMaxGandMinG').parent().parent().find('.display-btn:contains("＋")');
+			__tr.parent().parent().parent().find('tbody>tr.phase_details-showMaxGandMinG').hide(100);
+		}
+		else{
+			_tr.show(200);
+		}
+	});
+
 	// 展示資料(可以刪除)
 		// var i=0;
 		for(var i=0;i<6;i++){
@@ -495,6 +557,13 @@ var bt4=function(){
 			(new Date).getFullYear(),
 			(new Date).getMonth()+1
 		);
+
+		// 假定手操的元件(亂數) - for Demo
+		var _hbtns=$('.btn-operation');_hbtns.hidx=parseInt(Math.random()*_hbtns.length);for(var i=0;i<_hbtns.length;i++){
+			if(i==_hbtns.hidx){
+				$(_hbtns[i]).removeClass('btn-warning').removeClass('btn-danger').addClass('btn-inverse').html('手');
+			}
+		};
 
 	// 樣式&特效
 		$('table.table td').css({textAlign:'center'});
