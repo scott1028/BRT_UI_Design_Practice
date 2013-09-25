@@ -68,9 +68,9 @@ var bt4=function(){
 
 	// 萬年曆,萬年曆的資料填寫程式
 	var create_calendar_ui=function(){
-		var calendar_container=$('<div class="calendar_container" style="-webkit-user-select: none;clear:both;width:100%;position:relative;height:220px;margin-bottom:10px;"></div>');
+		var calendar_container=$('<div class="calendar_container" oncontextmenu="return false;" style="-webkit-user-select: none;clear:both;width:100%;position:relative;height:220px;margin-bottom:10px;"></div>');
 		calendar_container.append('\
-			<table class="table-bordered table table-striped table-hover scalendar sc1" style="width: 49%;height:220px;float:left;margin-left:0px;border-collapse:collapse"><tbody>\
+			<table class="table-bordered table table-hover scalendar sc1" style="width: 49%;height:220px;float:left;margin-left:0px;border-collapse:collapse"><tbody>\
 				<tr><th class="btn-info cleft" style="cursor:pointer;"><span class="icon-backward" style="width:20px;height:20px;"></span></th><th colspan="6" class="theader btn-warning"></th></tr>\
 				<tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>\
 				<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
@@ -82,7 +82,7 @@ var bt4=function(){
 			</tbody></table>\
 		');
 		calendar_container.append('\
-			<table class="table-bordered table table-striped table-hover scalendar sc2" style="width: 49%;height:200px;float:right;margin-right:0px;border-collapse:collapse"><tbody>\
+			<table class="table-bordered table table-hover scalendar sc2" style="width: 49%;height:200px;float:right;margin-right:0px;border-collapse:collapse"><tbody>\
 				<tr><th colspan="6" class="theader btn-warning"></th><th class="btn-info cright" style="cursor:pointer;"><span class="icon-forward" style="width:20px;height:20px;"></span></th></tr>\
 				<tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>\
 				<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
@@ -94,43 +94,43 @@ var bt4=function(){
 			</tbody></table>\
 		');
 	
-		// 日立的右鍵選單
-		var calendar_contextmenu_remove_handle;calendar_container.contextmenu(function(e){
-			// console.log(e);
+		// 行事曆的右鍵選單
+		// var calendar_contextmenu_remove_handle;calendar_container.contextmenu(function(e){
+		// 	// console.log(e);
 
-			if(e.target.textContent=='') return false;
+		// 	if(e.target.textContent=='') return false;
 
-			$('div.calendar_contextmenu').remove();
+		// 	$('div.calendar_contextmenu').remove();
 
-			calendar_contextmenu_remove_handle ? $(document).unbind('click',calendar_contextmenu_remove_handle) : undefined;
-			calendar_contextmenu_remove_handle ? $(document).unbind('scroll',calendar_contextmenu_remove_handle) : undefined;
+		// 	calendar_contextmenu_remove_handle ? $(document).unbind('click',calendar_contextmenu_remove_handle) : undefined;
+		// 	calendar_contextmenu_remove_handle ? $(document).unbind('scroll',calendar_contextmenu_remove_handle) : undefined;
 
-			$(document).click(calendar_contextmenu_remove_handle=function(e){
-				$('div.calendar_contextmenu').remove();
-			});
+		// 	$(document).click(calendar_contextmenu_remove_handle=function(e){
+		// 		$('div.calendar_contextmenu').remove();
+		// 	});
 
-			$(document).scroll(calendar_contextmenu_remove_handle=function(e){
-				$('div.calendar_contextmenu').remove();
-			});
+		// 	$(document).scroll(calendar_contextmenu_remove_handle=function(e){
+		// 		$('div.calendar_contextmenu').remove();
+		// 	});
 
-			var calendar_contextmenu=$('<div class="btn btn-danger calendar_contextmenu"></div>').css({
-				width:100,
-				position:'fixed',
-				left:e.clientX,
-				top:e.clientY,
-				display:'none',
-				textAlign:'center',
-				fontWeight:'bold',
-				fontSize:18,
-				borderRadius:5,
-				boxShadow:'3px 3px 10px #303030'
-			})
-			.append(
-				$('<div style="width:100%;cursor:pointer;">設定時段</div>')
-			).appendTo($('body')).toggle(200);
+		// 	var calendar_contextmenu=$('<div class="btn btn-danger calendar_contextmenu"></div>').css({
+		// 		width:100,
+		// 		position:'fixed',
+		// 		left:e.clientX,
+		// 		top:e.clientY,
+		// 		display:'none',
+		// 		textAlign:'center',
+		// 		fontWeight:'bold',
+		// 		fontSize:18,
+		// 		borderRadius:5,
+		// 		boxShadow:'3px 3px 10px #303030'
+		// 	})
+		// 	.append(
+		// 		$('<div style="width:100%;cursor:pointer;">設定時段</div>')
+		// 	).appendTo($('body')).toggle(200);
 
-			return false;
-		})
+		// 	return false;
+		// });
 
 		calendar_container.find('th.cleft').click(function(e){
 			// console.log(bt4.year_mon);
@@ -143,7 +143,6 @@ var bt4=function(){
 		});
 
 		calendar_container.find('th.cright').click(function(e){
-			// console.log(bt4.year_mon);
 			bt4.year_mon.month+=1;
 			if(bt4.year_mon.month>=13){
 				bt4.year_mon.month=1;
@@ -160,9 +159,6 @@ var bt4=function(){
 		var cal_tds=$('table.scalendar.sc1').find('td').empty().attr('date','').attr('index','');
 		var day=1;
 		for(var i=0;i<cal_tds.length;i++){
-
-			// console.log(cell_index);
-
 			if(cal_tds[i].className=='d'+cal.firstDay && day==1){
 				$(cal_tds[i]).text(day).attr('date',year+'-'+( m<10 ? '0'+m : m )+'-'+( day<10 ? '0'+day : day ) ).attr('index',cell_index);
 				day+=1;
@@ -204,6 +200,46 @@ var bt4=function(){
 
 		// 紀錄 flag, 之後要用來操作用
 		bt4.year_mon={ year:year, month:m };
+
+		// 當顯示日期建立好後, 設定日期拉選的Script
+		$('table.scalendar td:not([date=])').mousedown(function(e){
+			var start_idx,end_idx;
+			start_idx=parseInt($(e.currentTarget).attr('index'));
+
+			var _hh;$('table.scalendar td:not([date=])').mouseup(_hh=function(e){
+
+				end_idx=parseInt($(e.currentTarget).attr('index'));
+
+				_hh ? $('table.scalendar td:not([date=])').unbind('mouseup',_hh) : undefined;
+
+				var tmp;if(start_idx>end_idx){
+					tmp=start_idx;
+					start_idx=end_idx;
+					end_idx=tmp;
+				};
+
+				// 設定日期
+				if(e.button==0){
+					for(var i=start_idx;i<=end_idx;i++){
+						$('table.scalendar td[index='+i+']:not([date=])').css({
+							backgroundColor:'lightgreen'
+						});
+					}
+				}
+				else if(e.button==2){
+					for(var i=start_idx;i<=end_idx;i++){
+						$('table.scalendar td[index='+i+']:not([date=])').css({
+							backgroundColor:''
+						});
+					}
+				}
+			});
+
+			// var _hh2;$('table.scalendar td:not([date=])').mousemove(_hh2=function(e){
+			// 	_hh(e);
+			// });
+		});
+		
 
 	};window.create_calendar=create_calendar_ui.create_calendar;
 
