@@ -93,6 +93,44 @@ var bt4=function(){
 				<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
 			</tbody></table>\
 		');
+	
+		// 日立的右鍵選單
+		var calendar_contextmenu_remove_handle;calendar_container.find('td').contextmenu(function(e){
+			console.log(e);
+
+			$('div.calendar_contextmenu').remove();
+
+			calendar_contextmenu_remove_handle ? $(document).unbind('click',calendar_contextmenu_remove_handle) : undefined;
+			calendar_contextmenu_remove_handle ? $(document).unbind('scroll',calendar_contextmenu_remove_handle) : undefined;
+
+			$(document).click(calendar_contextmenu_remove_handle=function(e){
+				$('div.calendar_contextmenu').remove();
+			});
+
+			$(document).scroll(calendar_contextmenu_remove_handle=function(e){
+				$('div.calendar_contextmenu').remove();
+			});
+
+			var calendar_contextmenu=$('<div class="calendar_contextmenu"></div>').css({
+				width:100,
+				backgroundColor:'lightgreen',
+				position:'fixed',
+				left:e.clientX,
+				top:e.clientY,
+				display:'none',
+				border:'2px solid darkgreen',
+				opacity:0.9,
+				textAlign:'center',
+				fontWeight:'bold',
+				fontSize:18,
+				borderRadius:5
+			})
+			.append(
+				$('<div style="width:100%;cursor:pointer;" onmouseover="$(this).css(\'background-color\',\'lightyellow\');" onmouseout="$(this).css(\'background-color\',\'transparent\');">設定時段</div>')
+			).appendTo($('body')).toggle(250);
+
+			return false;
+		})
 
 		calendar_container.find('th.cleft').click(function(e){
 			// console.log(bt4.year_mon);
