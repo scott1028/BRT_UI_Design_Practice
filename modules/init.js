@@ -18,3 +18,8 @@ var buttonsTable={
 $(document).ready(function(e){
 	buttonsTable['即時狀態'].call(this);
 });
+
+// draw polyline
+$(document).ready(function(e){
+	qmap.add_section_polyline_by_array(path);
+});
