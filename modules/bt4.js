@@ -59,7 +59,7 @@ var bt4=function(){
 			<table class="table table-bordered mainbody">\
 				<thead>\
 					<tr class="header">\
-						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;width:174px;" colspan="3">計畫編號與起始時間</th>\
+						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;width:174px;" colspan="4">計畫編號與起始時間</th>\
 						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;width:630px;" colspan="2">時制設定</th>\
 					</tr>\
 				</thead>\
