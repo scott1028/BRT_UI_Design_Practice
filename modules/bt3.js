@@ -4,8 +4,8 @@ var bt3=function(){
 	.append('<li class="active"><a href="#">控制設備資訊</a></li>');
 
 	$('table td.bottomInfo').show();
-	qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
-	qmap.addInfo(
+	qmap=$('#centerview').empty().css('background-color','transparent').append($('<div class="_gmap"></div>'));
+	qmap.find('._gmap').buildGoogleMap().addInfo(
 		'<div class="btn-group btn-group-vertical" style="width:100%;">\
 			<div class="btn btn-success">正常</div>\
 			<div class="btn btn-success">異常</div>\

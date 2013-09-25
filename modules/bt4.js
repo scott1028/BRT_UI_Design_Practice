@@ -8,7 +8,7 @@ var bt4=function(){
 		$('table td.bottomInfo').hide();//.css('height','0px');
 		qmap=$('#centerview').empty().css('background-color','transparent');
 		qmap.append('\
-			<div style="position:relative;z-index:-1;">\
+			<div style="position:relative;z-index:1;">\
 			<span class="btn btn-success" style="float:left;margin:3px;font-size:12pt;">新增時段</span>\
 			<!--span class="btn btn-success lcn_calculate" style="float:right;margin:3px;font-size:12pt;" data-toggle="button">行事曆</span-->\
 			<ul class="nav nav-tabs">\

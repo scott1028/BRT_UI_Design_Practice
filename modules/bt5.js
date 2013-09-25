@@ -9,7 +9,7 @@ var bt5=function(){
 		$('table td.bottomInfo').hide();
 		qmap=$('#centerview').empty().css('background-color','transparent');
 		qmap.append('\
-			<div style="position:relative;z-index:-1;" class="tab-topc">\
+			<div style="position:relative;z-index:1;" class="tab-topc">\
 			<!--span class="btn btn-success" style="float:left;margin:3px;font-size:12pt;">新增時間</span-->\
 			<ul class="nav nav-tabs">\
 				<li class="active"><a href="#" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');">平日</a></li>\

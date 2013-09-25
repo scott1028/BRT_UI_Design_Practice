@@ -5,8 +5,8 @@ var bt2=function(){
 	.append('<li class="active"><a href="#">號誌控制邏輯</a></li>');
 
 	$('table td.bottomInfo').show();
-	qmap=$('#centerview').empty().css('background-color','transparent').buildGoogleMap();
-	qmap.addInfo(
+	qmap=$('#centerview').empty().css('background-color','transparent').append($('<div class="_gmap"></div>'));
+	qmap.find('._gmap').buildGoogleMap().addInfo(
 		'<div class="btn-group btn-group-vertical" style="width:100%;">\
 			<div class="btn btn-success">快捷巴士</div>\
 			<div class="btn btn-success">快捷巴士站</div>\
