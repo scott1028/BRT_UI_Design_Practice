@@ -25,18 +25,18 @@ var bt4=function(){
 					<a style="cursor: pointer;" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');"><span style="color:darkgreen;">特別日 2(9)</span></a>\
 				</li>\
 			</ul>\
+			<div style="position:absolute;right:0px;top:0px;">\
+				<select class="span3" style="margin:2px;font-size:12pt;font-weight:bold;width:150px;">\
+					<option>忠明路口</option>\
+					<option>英才路口</option>\
+					<option>五權路口</option>\
+				</select>\
+			</div>\
 			</div>\
 		');
 		
 		qmap.append(
 			'<div style="height:100%;padding:10px;padding-top:10px;">\
-				<label style="float:left;margin-right:10px;font-size:14pt;font-weight:bold;">路口名稱　\
-					<select class="span3" style="margin:2px;font-size:12pt;font-weight:bold;">\
-						<option>忠明路口</option>\
-						<option>英才路口</option>\
-						<option>五權路口</option>\
-					</select>\
-				</label>\
 				<a class="calender_insert_pointer" style="display:none;"></a>\
 				<a class="data_header_insert_point" style="display:none;"></a>\
 				\
