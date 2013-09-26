@@ -6,7 +6,7 @@ var bt7=function(){
 
 	$('table td.bottomInfo').css('height','200px');
 	qmap=$('#centerview').empty().css('background-color','transparent').append($('<div class="_gmap"></div>'));
-	qmap.find('._gmap').buildGoogleMap();
+	qmap.map=qmap.find('._gmap').buildGoogleMap();
 	
 	$('#centerview').hide().fadeIn(300);
 };

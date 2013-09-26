@@ -49,7 +49,6 @@ var bt4=function(){
 
 		$('\
 			<div style="clear:both;text-align:right;margin:5px;">\
-				<span class="btn btn-danger btn-showMaxGandMinG" style="float:left;" data-toggle="button">顯示最大綠與最小綠</span>\
 				<span class="btn btn-deltime">刪除選取</span>\
 				<span class="btn btn-addtime">新增時間</span>\
 			</div>\
@@ -59,7 +58,8 @@ var bt4=function(){
 			<table class="table table-bordered mainbody">\
 				<thead>\
 					<tr class="header">\
-						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;width:174px;" colspan="4">計畫編號與起始時間</th>\
+						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;cursor:pointer;" class="display-btn">＋</th>\
+						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;width:174px;" colspan="3">計畫編號與起始時間</th>\
 						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;width:630px;" colspan="2">時制設定</th>\
 					</tr>\
 				</thead>\
@@ -94,47 +94,8 @@ var bt4=function(){
 				<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
 			</tbody></table>\
 		');
-	
-		// 行事曆的右鍵選單
-		// var calendar_contextmenu_remove_handle;calendar_container.contextmenu(function(e){
-		// 	// console.log(e);
-
-		// 	if(e.target.textContent=='') return false;
-
-		// 	$('div.calendar_contextmenu').remove();
-
-		// 	calendar_contextmenu_remove_handle ? $(document).unbind('click',calendar_contextmenu_remove_handle) : undefined;
-		// 	calendar_contextmenu_remove_handle ? $(document).unbind('scroll',calendar_contextmenu_remove_handle) : undefined;
-
-		// 	$(document).click(calendar_contextmenu_remove_handle=function(e){
-		// 		$('div.calendar_contextmenu').remove();
-		// 	});
-
-		// 	$(document).scroll(calendar_contextmenu_remove_handle=function(e){
-		// 		$('div.calendar_contextmenu').remove();
-		// 	});
-
-		// 	var calendar_contextmenu=$('<div class="btn btn-danger calendar_contextmenu"></div>').css({
-		// 		width:100,
-		// 		position:'fixed',
-		// 		left:e.clientX,
-		// 		top:e.clientY,
-		// 		display:'none',
-		// 		textAlign:'center',
-		// 		fontWeight:'bold',
-		// 		fontSize:18,
-		// 		borderRadius:5,
-		// 		boxShadow:'3px 3px 10px #303030'
-		// 	})
-		// 	.append(
-		// 		$('<div style="width:100%;cursor:pointer;">設定時段</div>')
-		// 	).appendTo($('body')).toggle(200);
-
-		// 	return false;
-		// });
 
 		calendar_container.find('th.cleft').click(function(e){
-			// console.log(bt4.year_mon);
 			bt4.year_mon.month-=1;
 			if(bt4.year_mon.month<=0){
 				bt4.year_mon.month=12;
@@ -258,6 +219,25 @@ var bt4=function(){
 	// 日曆插入點
 	create_calendar_ui().insertAfter(qmap.find('a.calender_insert_pointer'));
 
+	// UI設計的按鈕 Script 展開(單獨抽出來)
+	var btn_collapsed=function(e){
+		if($(this).text()=='＋'){
+			$(this).text('○');
+			$(this).parent().parent().parent().find('tbody tr.phase_details').hide();
+			$(this).parent().parent().parent().find('tbody tr.phase_details.phase_details-showMaxGandMinG').show(150);
+		}
+		else if($(this).text()=='○'){
+			$(this).text('－');
+			$(this).parent().parent().parent().find('tbody tr.phase_details').show(150);
+		}
+		else if($(this).text()=='－'){
+			$(this).text('＋');
+			$(this).parent().parent().parent().find('tbody tr.phase_details').hide(150);
+		}
+
+		return $(this).text();
+	};
+
 	// 資料列的 UI 設計
 	var create_tr_ui=function(data){
 		var ui=$('\
@@ -281,23 +261,24 @@ var bt4=function(){
 					<table style="width:100%;margin:0px;height:100%;">\
 						<thead>\
 							<tr>\
-								<th class="display-btn" style="cursor:pointer;width:30px;text-align:center;">＋</th>\
-								<th style="text-align:center;color:red !important;">分1</th>\
-								<th style="text-align:center;color:red !important;">分2</th>\
-								<th style="text-align:center;color:red !important;">分3</th>\
-								<th style="text-align:center;color:red !important;">分4</th>\
-								<th style="text-align:center;color:red !important;">分5</th>\
-								<th style="text-align:center;color:red !important;">分6</th>\
+								<th class="display-btn" style="cursor:pointer;width:10px;text-align:center">＋</th>\
+								<th style="text-align:center;color:red !important;width:30px !important;">分相</th>\
+								<th style="text-align:center;color:red !important;">1</th>\
+								<th style="text-align:center;color:red !important;">2</th>\
+								<th style="text-align:center;color:red !important;">3</th>\
+								<th style="text-align:center;color:red !important;">4</th>\
+								<th style="text-align:center;color:red !important;">5</th>\
+								<th style="text-align:center;color:red !important;">6</th>\
 								<!--\
-								<th style="text-align:center;color:red !important;">分7</th>\
-								<th style="text-align:center;color:red !important;">分8</th>\
+								<th style="text-align:center;color:red !important;">7</th>\
+								<th style="text-align:center;color:red !important;">8</th>\
 								-->\
 								<th style="text-align:center;color:red !important;">週期</th>\
 								<th style="text-align:center;color:red !important;">延遲</th>\
 							</tr>\
 							<!--總攬-->\
 							<tr class="phase_overview">\
-								<td style="color:#0080FF;font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">總秒數</td>\
+								<td colspan=2 style="color:#0080FF;font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">秒數</td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -315,7 +296,7 @@ var bt4=function(){
 						<tbody>\
 							<!--細項-->\
 							<tr class="phase_details">\
-								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">紅</th>\
+								<th colspan=2 style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">紅</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -329,7 +310,7 @@ var bt4=function(){
 							</tr>\
 							<!--細項-->\
 							<tr class="phase_details">\
-								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">綠</th>\
+								<th colspan=2 style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">綠</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -342,7 +323,7 @@ var bt4=function(){
 								-->\
 							</tr>\
 							<tr class="phase_details">\
-								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">黃</th>\
+								<th colspan=2 style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">黃</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -355,7 +336,7 @@ var bt4=function(){
 								-->\
 							</tr>\
 							<tr class="phase_details">\
-								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">行綠</th>\
+								<th colspan=2 style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">行綠</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -368,7 +349,7 @@ var bt4=function(){
 								-->\
 							</tr>\
 							<tr class="phase_details">\
-								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">行綠閃</th>\
+								<th colspan=2 style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">行綠閃</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -381,7 +362,7 @@ var bt4=function(){
 								-->\
 							</tr>\
 							<tr class="phase_details phase_details-showMaxGandMinG">\
-								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">最小綠</th>\
+								<th colspan=2 style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">最小綠</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -394,7 +375,7 @@ var bt4=function(){
 								-->\
 							</tr>\
 							<tr class="phase_details phase_details-showMaxGandMinG">\
-								<th style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">最大綠</th>\
+								<th colspan=2 style="font-weight:bold;font-size:8pt;padding-left:0px;padding-right:0px;text-align:center;">最大綠</th>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
 								<td style="padding:0px;"><input type="number" style="padding:0px;margin:0px;width:100%;border-width:0px;height:100%;font-size:14pt;font-weight:bold;"" /></td>\
@@ -425,60 +406,60 @@ var bt4=function(){
 			}
 		});
 
-		// script
-		/*
-		ui.find('input[type=number]').click(function(e){ // 當 input:number 被點選的時候
-			// console.log(e);
-			$('div.bottom_spinner').remove();
-			var spinner=$('<div class="bottom_spinner"></div>').css({
-				width:'100%',
-				height:'200px',
-				position:'fixed',
-				bottom:0,
-				left:0,
-				backgroundColor:'#303030',
-				zIndex:101,
-			});
+		// // script
+		
+		// ui.find('input[type=number]').click(function(e){ // 當 input:number 被點選的時候
+		// 	// console.log(e);
+		// 	$('div.bottom_spinner').remove();
+		// 	var spinner=$('<div class="bottom_spinner"></div>').css({
+		// 		width:'100%',
+		// 		height:'200px',
+		// 		position:'fixed',
+		// 		bottom:0,
+		// 		left:0,
+		// 		backgroundColor:'#303030',
+		// 		zIndex:101,
+		// 	});
 
-			var close_bt=$('<div>X</div>').css({
-				borderRadius:35,
-				position:'absolute',
-				backgroundColor:'white',
-				width:50,
-				height:50,
-				textAlign:'center',
-				lineHeight:'50px',
-				boxShadow:'#303030 0px 0px 10px inset',
-				border:'5px solid #303030',
-				right:25,
-				top:-25,
-				cursor:'pointer'
-			}).click(function(e){
-				$(this).parent().animate({
-					bottom:-200
-				},300,'swing',function(ee){
-					$('div.top_stretch').css('height',0);
-					$('hr.bottom_stretch').css({borderWidth:0});
-					$(this).remove();
-				});
-			}).hover(function(e){
-				$(e.target).css('background-color','yellow');
-			},function(e){
-				$(e.target).css('background-color','white');
-			});
+		// 	var close_bt=$('<div>X</div>').css({
+		// 		borderRadius:35,
+		// 		position:'absolute',
+		// 		backgroundColor:'white',
+		// 		width:50,
+		// 		height:50,
+		// 		textAlign:'center',
+		// 		lineHeight:'50px',
+		// 		boxShadow:'#303030 0px 0px 10px inset',
+		// 		border:'5px solid #303030',
+		// 		right:25,
+		// 		top:-25,
+		// 		cursor:'pointer'
+		// 	}).click(function(e){
+		// 		$(this).parent().animate({
+		// 			bottom:-200
+		// 		},300,'swing',function(ee){
+		// 			$('div.top_stretch').css('height',0);
+		// 			$('hr.bottom_stretch').css({borderWidth:0});
+		// 			$(this).remove();
+		// 		});
+		// 	}).hover(function(e){
+		// 		$(e.target).css('background-color','yellow');
+		// 	},function(e){
+		// 		$(e.target).css('background-color','white');
+		// 	});
 
-			close_bt.appendTo(spinner);
+		// 	close_bt.appendTo(spinner);
 
-			//spinner.append();
+		// 	//spinner.append();
 
-			spinner.css('bottom','-200px').insertAfter($('a.bottom_modal_point')).animate({
-				bottom:0
-			},300,'swing',function(ee){
-				$('div.top_stretch').css('height','100%');
-				$('hr.bottom_stretch').css({borderWidth:80});
-			});
-		});
-		*/
+		// 	spinner.css('bottom','-200px').insertAfter($('a.bottom_modal_point')).animate({
+		// 		bottom:0
+		// 	},300,'swing',function(ee){
+		// 		$('div.top_stretch').css('height','100%');
+		// 		$('hr.bottom_stretch').css({borderWidth:80});
+		// 	});
+		// });
+		
 
 		var tp=ui.find('div.bootstrap-timepicker>input').css('font-size','14pt').timepicker({
 			minuteStep: 10,
@@ -492,21 +473,7 @@ var bt4=function(){
 		ui.find('th').css({fontWeight:'bold',color:'darkgreen'});
 		ui.find('.phase_overview input').css({textAlign:'center',color:'#0080FF'});
 		ui.find('.phase_details input').css({textAlign:'center',color:'#008080'});
-		ui.find('.display-btn').click(function(e){
-			if($(this).text()=='＋'){
-				$(this).text('－');
-				$(this).parent().parent().parent().find('tbody tr.phase_details').show(150);
-			}
-			else{
-				$(this).text('＋');
-				if($('.btn-danger.btn-showMaxGandMinG').hasClass('active')){
-					$(this).parent().parent().parent().find('tbody tr.phase_details:not(.phase_details-showMaxGandMinG)').hide(100);
-				}
-				else{
-					$(this).parent().parent().parent().find('tbody tr.phase_details').hide(100);	
-				}
-			}
-		});
+		ui.find('.display-btn').click(btn_collapsed);
 
 		return ui;
 	};
@@ -520,7 +487,7 @@ var bt4=function(){
 	};
 
 	// 新增時間按鈕 script
-	qmap.find('.btn-addtime').click(function(e){
+	qmap.find('table table th.btn-addtime').click(function(e){
 		var item=qmap.find('tbody>tr>th>input[type=checkbox]:checked:last').parent().parent();
 		if(item.length!=0) create_tr_ui.create_and_insert(undefined,item);
 		else create_tr_ui.create_and_insert(undefined);
@@ -534,16 +501,11 @@ var bt4=function(){
 		}
 	});
 
-	// 顯示最大綠最小綠按鈕 script
-	qmap.find('.btn-danger.btn-showMaxGandMinG').click(function(e){
-		var _tr=qmap.find('tbody>tr.phase_details-showMaxGandMinG');
-		if($('.btn-danger.btn-showMaxGandMinG').hasClass('active')){
-			var __tr=qmap.find('tbody>tr.phase_details-showMaxGandMinG').parent().parent().find('.display-btn:contains("＋")');
-			__tr.parent().parent().parent().find('tbody>tr.phase_details-showMaxGandMinG').hide(100);
-		}
-		else{
-			_tr.show(200);
-		}
+	// // 分項設定全部展開
+	qmap.find('table.table.table-bordered.mainbody>thead>tr.header>th.display-btn').click(function(e){
+		var target_btns=$('table table th.display-btn'),text;
+		for(var i=0;i<target_btns.length;i++) text=btn_collapsed.call(target_btns[i]);
+		$(this).text(text);
 	});
 
 	// 展示資料(可以刪除)
