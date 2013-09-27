@@ -94,6 +94,7 @@ var bt4=function(){
 				<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
 			</tbody></table>\
 		');
+		calendar_container.find('td').append($('<div style="position:relative;height:20px;line-height:20px;"></div>'));
 
 		calendar_container.find('th.cleft').click(function(e){
 			bt4.year_mon.month-=1;
@@ -118,16 +119,22 @@ var bt4=function(){
 	create_calendar_ui.create_calendar=function(year,m){
 		var cell_index=0;
 		var cal=getYearFirstDate(year,m,1);
-		var cal_tds=$('table.scalendar.sc1').find('td').empty().attr('date','').attr('index','');
+		var cal_tds=$('table.scalendar.sc1').find('td').find('div').empty().attr('date','').attr('index','').css('padding','0px').css('position','relative');
 		var day=1;
 		for(var i=0;i<cal_tds.length;i++){
-			if(cal_tds[i].className=='d'+cal.firstDay && day==1){
-				$(cal_tds[i]).text(day).attr('date',year+'-'+( m<10 ? '0'+m : m )+'-'+( day<10 ? '0'+day : day ) ).attr('index',cell_index);
+			if($(cal_tds[i]).parent().attr('class')=='d'+cal.firstDay && day==1){
+				$(cal_tds[i])
+				.attr('date',year+'-'+( m<10 ? '0'+m : m )+'-'+( day<10 ? '0'+day : day ) )
+				.attr('index',cell_index)
+				.text(day);
 				day+=1;
 				cell_index+=1;
 			}
 			else if(day>1){
-				$(cal_tds[i]).text(day).attr('date',year+'-'+( m<10 ? '0'+m : m )+'-'+( day<10 ? '0'+day : day ) ).attr('index',cell_index);
+				$(cal_tds[i])
+				.attr('date',year+'-'+( m<10 ? '0'+m : m )+'-'+( day<10 ? '0'+day : day ) )
+				.attr('index',cell_index)
+				.text(day);
 				day+=1;
 				cell_index+=1;
 			}
@@ -141,16 +148,22 @@ var bt4=function(){
 		var _year= ( m+1>12 ? year+1 : year );
 
 		var cal=getYearFirstDate(_year,_m,1);
-		var cal_tds=$('table.scalendar.sc2').find('td').empty().attr('date','').attr('index','');;
+		var cal_tds=$('table.scalendar.sc2').find('td').find('div').empty().attr('date','').attr('index','').css('padding','0px').css('position','relative');
 		var day=1;
 		for(var i=0;i<cal_tds.length;i++){
-			if(cal_tds[i].className=='d'+cal.firstDay && day==1){
-				$(cal_tds[i]).text(day).attr('date',_year+'-'+( _m<10 ? '0'+_m : _m )+'-'+( day<10 ? '0'+day : day ) ).attr('index',cell_index);
+			if($(cal_tds[i]).parent().attr('class')=='d'+cal.firstDay && day==1){
+				$(cal_tds[i])
+				.attr('date',year+'-'+( m<10 ? '0'+m : m )+'-'+( day<10 ? '0'+day : day ) )
+				.attr('index',cell_index)
+				.text(day);
 				day+=1;
 				cell_index+=1;
 			}
 			else if(day>1){
-				$(cal_tds[i]).text(day).attr('date',_year+'-'+( _m<10 ? '0'+_m : _m )+'-'+( day<10 ? '0'+day : day ) ).attr('index',cell_index);
+				$(cal_tds[i])
+				.attr('date',year+'-'+( m<10 ? '0'+m : m )+'-'+( day<10 ? '0'+day : day ) )
+				.attr('index',cell_index)
+				.text(day);
 				day+=1;
 				cell_index+=1;
 			}
@@ -164,18 +177,19 @@ var bt4=function(){
 		bt4.year_mon={ year:year, month:m };
 
 		// 當顯示日期建立好後, 設定日期拉選的 Script
-		$('table.scalendar td:not([date=])').css('position','relative').unbind('mousedown');		// 要取消之前的, 不然會重複觸發
-		$('table.scalendar td:not([date=])').mousedown(function(e){
+		// 可能要改成加在 div>div底部
+		$('table.scalendar td div:not([date=])').css('position','relative').unbind('mousedown');		// 要取消之前的, 不然會重複觸發
+		$('table.scalendar td div:not([date=])').mousedown(function(e){
 			var start_idx,end_idx;
 			start_idx=parseInt($(e.currentTarget).attr('index'));
 
-			$('table.scalendar td:not([date=])').unbind('mouseup');
+			$('table.scalendar td div:not([date=])').unbind('mouseup');
 
-			var _hh;$('table.scalendar td:not([date=])').mouseup(_hh=function(e){
+			var _hh;$('table.scalendar td div:not([date=])').mouseup(_hh=function(e){
 
 				end_idx=parseInt($(e.currentTarget).attr('index'));
 
-				_hh ? $('table.scalendar td:not([date=])').unbind('mouseup',_hh) : undefined;
+				_hh ? $('table.scalendar td div:not([date=])').unbind('mouseup',_hh) : undefined;
 
 				var tmp;if(start_idx>end_idx){
 					tmp=start_idx;
@@ -183,13 +197,13 @@ var bt4=function(){
 					end_idx=tmp;
 				};
 
-				// 設定日期
+				// 設定日期, 刪除底部 Div>Div 的標示
 				if(e.button==0){
 					for(var i=start_idx;i<=end_idx;i++){
-						var _t=$('table.scalendar td[index='+i+']:not([date=])');
-						if(_t.find('div').length>0) _t.find('div').remove();
+						var _t=$('table.scalendar td div[index='+i+']:not([date=])');
+						if(_t.find('div.active').length>0) _t.find('div.active').remove();
 						_t.append(
-							$('<div></div>').css({
+							$('<div class="active"></div>').css({
 								width:'100%',
 								height:'100%',
 								backgroundColor:'lightgreen',
@@ -203,7 +217,7 @@ var bt4=function(){
 				}
 				else if(e.button==2){
 					for(var i=start_idx;i<=end_idx;i++){
-						$('table.scalendar td[index='+i+']:not([date=])').find('div').remove();
+						$('table.scalendar td div[index='+i+']:not([date=])').find('div.active').remove();
 					}
 				}
 			});
