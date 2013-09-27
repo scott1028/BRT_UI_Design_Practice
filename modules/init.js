@@ -21,5 +21,5 @@ $(document).ready(function(e){
 
 // draw polyline
 $(document).ready(function(e){
-	qmap.map.add_section_polyline_by_array(path);
+	qmap.map.add_section_polyline_by_array(appDB.demo_path);
 });
