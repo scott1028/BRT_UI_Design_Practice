@@ -502,8 +502,11 @@ var bt4=function(){
 	});
 
 	// // 分項設定全部展開
-	qmap.find('table.table.table-bordered.mainbody>thead>tr.header>th.display-btn').click(function(e){
+	var tbt=qmap.find('table.table.table-bordered.mainbody>thead>tr.header>th.display-btn');
+	tbt.click(function(e){
+		var class_string=tbt.find('span.btn-icon').attr('class');
 		var target_btns=$('table table th.display-btn');
+		target_btns.find('span.btn-icon').attr('class',class_string);
 		for(var i=0;i<target_btns.length;i++) btn_collapsed.call(target_btns[i]);
 	});
 
