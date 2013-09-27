@@ -4,13 +4,13 @@ var bt10=function(){
 	.append('<li class="active"><a href="#">系統帳號管理</a></li>');
 
 	$('table td.bottomInfo').hide();//.css('height','200px');
-	qmap=$('#centerview').empty().css('padding','10px');
+	qmap=$('#centerview').empty().append($('<div style="padding: 10px;"></div>'));
 
 	var topbutton=$('\
 		<div style="text-align:right;margin-bottom:10px;height:30px;">\
 			<span class="btn btn-inverse">新增使用者</span>\
 		</div>\
-	').appendTo(qmap);
+	').appendTo(qmap.find('div:first'));
 
 	var datagrid=$('\
 		<table class="table table-bordered table-hover table-usergrid">\
@@ -48,7 +48,7 @@ var bt10=function(){
 				</tr>\
 			</tbody>\
 		</table>\
-	').appendTo(qmap);
+	').appendTo(qmap.find('div:first'));
 
 	$('#centerview').hide().fadeIn(300);
 }
