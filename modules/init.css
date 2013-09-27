@@ -113,7 +113,7 @@ table.scalendar td:hover {
 table input[type=number] {
 	-webkit-transition: all .1s ease-out;
 }
-table input[type=number]:hover {
+table input[type=number]:focus {
 	-webkit-transform: scale(1.5,1.5);
 	box-shadow: 0px 0px 3px #505050;
 	cursor: pointer !important;
