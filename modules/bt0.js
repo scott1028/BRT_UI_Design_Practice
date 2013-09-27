@@ -4,7 +4,7 @@ var bt0=function(){
 		<hr style="margin:5px;vertical-align:middle;border: 1px solid #DDDDDD;" />\
 		<div class="accordion-group">\
 			<div class="accordion-heading">\
-				<div style="color:gold;" class="accordion-toggle btn btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">\
+				<div style="color:gold;" class="accordion-toggle btn btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt8();">\
 					事故建立\
 				</div>\
 			</div>\
@@ -12,7 +12,7 @@ var bt0=function(){
 		\
 		<div class="accordion-group">\
 			<div class="accordion-heading">\
-				<div style="color:gold;" class="accordion-toggle btn btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">\
+				<div style="color:gold;" class="accordion-toggle btn btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt9();">\
 					歷史資料查詢\
 				</div>\
 			</div>\
@@ -20,7 +20,7 @@ var bt0=function(){
 		\
 		<div class="accordion-group">\
 			<div class="accordion-heading">\
-				<div style="color:gold;" class="accordion-toggle btn btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">\
+				<div style="color:gold;" class="accordion-toggle btn btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt10();">\
 					系統帳號管理\
 				</div>\
 			</div>\
@@ -28,7 +28,7 @@ var bt0=function(){
 		\
 		<div class="accordion-group">\
 			<div class="accordion-heading">\
-				<div style="color:gold;" class="accordion-toggle btn btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt7();">\
+				<div style="color:gold;" class="accordion-toggle btn btn-primary text-center" data-toggle="collapse" data-parent="#accordion2" href="#collapse5" onclick="bt11();">\
 					路口設備管理\
 				</div>\
 			</div>\
