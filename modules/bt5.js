@@ -60,7 +60,7 @@ var bt5=function(){
 
 	// 按鈕切換
 		$('table.table td span.btn').click(function(e){
-			switch(e.target.innerText){
+			switch($(e.target).text()){
 				case '定時時制':
 					$(e.target).text('優先號誌').attr('class','btn btn-danger');
 					break;

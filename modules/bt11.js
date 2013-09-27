@@ -9,10 +9,10 @@ var bt11=function(){
 	qmap.map=qmap.find('._gmap').buildGoogleMap();
 
 	qmap.map.addInfo(
-		'<div class="btn-group" style="width:100%;">\
-			<div class="btn btn-inverse">路線</div>\
-			<div class="btn btn-inverse">路段</div>\
-			<div class="btn btn-inverse">路口</div>\
+		'<div class="btn-group" data-toggle="buttons-radio" style="width:100%;">\
+			<div class="btn btn-info">路線</div>\
+			<div class="btn btn-info">路段</div>\
+			<div class="btn btn-info">路口</div>\
 			<div class="btn btn-warning">巴士站</div>\
 			<div class="btn btn-success">AVI</div>\
 			<div class="btn btn-success">號誌控制器</div>\

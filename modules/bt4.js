@@ -58,7 +58,7 @@ var bt4=function(){
 			<table class="table table-bordered mainbody">\
 				<thead>\
 					<tr class="header">\
-						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;cursor:pointer;" class="display-btn">＋</th>\
+						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;cursor:pointer;" class="display-btn"><span class="btn-icon icon-plus"></span></th>\
 						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;width:174px;" colspan="3">計畫編號與起始時間</th>\
 						<th style="color:blue;text-align:center;font-size:12pt;font-weight:bold;width:630px;" colspan="2">時制設定</th>\
 					</tr>\
@@ -221,17 +221,17 @@ var bt4=function(){
 
 	// UI設計的按鈕 Script 展開(單獨抽出來)
 	var btn_collapsed=function(e){
-		if($(this).text()=='＋'){
-			$(this).text('○');
+		if($(this).find('span').hasClass('icon-plus')){
+			$(this).find('span').removeClass('icon-plus').addClass('icon-list');
 			$(this).parent().parent().parent().find('tbody tr.phase_details').hide();
 			$(this).parent().parent().parent().find('tbody tr.phase_details.phase_details-showMaxGandMinG').show(150);
 		}
-		else if($(this).text()=='○'){
-			$(this).text('－');
+		else if($(this).find('span').hasClass('icon-list')){
+			$(this).find('span').removeClass('icon-list').addClass('icon-minus');
 			$(this).parent().parent().parent().find('tbody tr.phase_details').show(150);
 		}
-		else if($(this).text()=='－'){
-			$(this).text('＋');
+		else if($(this).find('span').hasClass('icon-minus')){
+			$(this).find('span').removeClass('icon-minus').addClass('icon-plus');
 			$(this).parent().parent().parent().find('tbody tr.phase_details').hide(150);
 		}
 
@@ -261,7 +261,7 @@ var bt4=function(){
 					<table style="width:100%;margin:0px;height:100%;">\
 						<thead>\
 							<tr>\
-								<th class="display-btn" style="cursor:pointer;width:10px;text-align:center">＋</th>\
+								<th class="display-btn" style="cursor:pointer;width:10px;text-align:center"><span class="btn-icon icon-plus"></span></th>\
 								<th style="text-align:center;color:red !important;width:30px !important;">分相</th>\
 								<th style="text-align:center;color:red !important;">1</th>\
 								<th style="text-align:center;color:red !important;">2</th>\
@@ -503,9 +503,8 @@ var bt4=function(){
 
 	// // 分項設定全部展開
 	qmap.find('table.table.table-bordered.mainbody>thead>tr.header>th.display-btn').click(function(e){
-		var target_btns=$('table table th.display-btn'),text;
-		for(var i=0;i<target_btns.length;i++) text=btn_collapsed.call(target_btns[i]);
-		$(this).text(text);
+		var target_btns=$('table table th.display-btn');
+		for(var i=0;i<target_btns.length;i++) btn_collapsed.call(target_btns[i]);
 	});
 
 	// 展示資料(可以刪除)

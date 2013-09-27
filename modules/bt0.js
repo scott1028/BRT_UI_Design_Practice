@@ -39,18 +39,18 @@ var bt0=function(){
 	var loginUI=$('<div class="btn btn-danger" style="width:40px;height:20px;position:fixed;z-index:100;margin-left:10px;bottom:20px;left:0px;">登入</div>');
 	loginUI.appendTo($('body'));
 	loginUI.click(function(e){
-		if(e.target.innerText=='登入'){
+		if($(e.target).text()=='登入'){
 			$('div.dashboard').empty();
 			$('div.dashboard').append(UIs.hide());
 			UIs.show(250);
-			e.target.innerText='登出';
+			$(e.target).text('登出');
 		}
 		else{
 			UIs.hide(250,function(e){
 				UIs.remove();
 				$('div.dashboard').empty();	
 			});
-			e.target.innerText='登入';
+			$(e.target).text('登入');
 		}
 	});
 };
