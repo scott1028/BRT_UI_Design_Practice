@@ -121,3 +121,11 @@ table input[type=number]:focus {
 .btn.active {
 	color:blue !important;
 }
+
+table.scalendar td:active {
+	color: red;
+}
+
+table.table-usergrid td,table.table-usergrid th {
+	font-size: 14pt !important;
+}
