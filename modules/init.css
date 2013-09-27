@@ -129,3 +129,7 @@ table.scalendar td:active {
 table.table-usergrid td,table.table-usergrid th {
 	font-size: 14pt !important;
 }
+
+div.btn-group-div-margin>div {
+	margin: 5px;
+}
