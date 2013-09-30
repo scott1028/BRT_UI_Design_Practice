@@ -11,7 +11,7 @@ var bt4=function(){
 			<div style="position:relative;z-index:1;">\
 			<span class="btn btn-success" style="float:left;margin:3px;font-size:12pt;">新增時段</span>\
 			<!--span class="btn btn-success lcn_calculate" style="float:right;margin:3px;font-size:12pt;" data-toggle="button">行事曆</span-->\
-			<ul class="nav nav-tabs">\
+			<ul class="nav nav-tabs segtype_tab">\
 				<li class="active">\
 					<a style="cursor: pointer;" onclick="$(this).parent().parent().find(\'li\').attr(\'class\',\'\');$(this).parent().attr(\'class\',\'active\');"><span style="color:#303030;">平日(6)</span></a>\
 				</li>\
@@ -66,6 +66,24 @@ var bt4=function(){
 				<tbody></tbody>\
 			</table>\
 		').insertAfter(qmap.find('a.data_header_insert_point'));		// 插入點;
+
+	qmap.find('ul.segtype_tab li').contextmenu(function(e){
+		$(document).unbind('click');$(document).click(function(){$('div.segtype_popmenu').remove();})
+		$('div.segtype_popmenu').remove();
+		var popmenu=$('\
+			<div class="segtype_popmenu">\
+				<div class="btn">改變顏色</div>\
+			</div>\
+			').css({
+			position:'absolute',
+			left:e.pageX,
+			top:e.pageY+20,
+			zIndex:1000,
+			width:100,
+		}).appendTo($('body'));
+
+		return false;
+	});
 
 	// 萬年曆,萬年曆的資料填寫程式
 	var create_calendar_ui=function(){
@@ -216,11 +234,7 @@ var bt4=function(){
 					}
 				}
 				else if(e.button==2){
-					console.log(123);
-					for(var i=start_idx;i<=end_idx;i++){
-						console.log( 'table.scalendar td div[index='+i+']:not([date=])' );
-						$('table.scalendar td div[index='+i+']:not([date=])').find('div.active').remove();
-					}
+					for(var i=start_idx;i<=end_idx;i++) $('table.scalendar td div[index='+i+']:not([date=])').find('div.active').remove();
 				}
 			});
 		});
