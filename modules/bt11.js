@@ -9,7 +9,7 @@ var bt11=function(){
 	qmap.map=qmap.find('._gmap').buildGoogleMap();
 
 	qmap.map.addInfo(
-		'<div class="btn-group" data-toggle="buttons-radio" style="width:100%;">\
+		'<div class="btn-group marklist" data-toggle="buttons-radio" style="width:100%;">\
 			<div class="btn btn-info">路線</div>\
 			<div class="btn btn-info">路段</div>\
 			<div class="btn btn-info">路口</div>\
@@ -28,14 +28,25 @@ var bt11=function(){
 			marginRight:5
 		}
 	);
-
-	// 監看經緯度(位置)
-	google.maps.event.addListener(qmap.map.map, 'click', function(e) {
-		//console.log(e.latLng);
-		console.log(123);
-
-
-	});
 	
 	$('#centerview').hide().fadeIn(300);
+
+	qmap.map.map.addListener('click',function(e){
+		var text=$('div.marklist div.active').text();
+		if(text){
+			switch(text){
+				case '巴士站':
+					console.log(e.latLng);
+					break;
+				case '':
+					break;
+				case '':
+					break;
+				case '':
+					break;
+				case '':
+					break;
+			}
+		}
+	});
 };

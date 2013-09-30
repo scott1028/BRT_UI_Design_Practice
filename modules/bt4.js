@@ -203,9 +203,9 @@ var bt4=function(){
 
 			$('table.scalendar td div:not([date=])').unbind('mouseup');
 
-			var _hh;$('table.scalendar td div:not([date=])').mouseup(_hh=function(e){
+			var _hh;$('table.scalendar td div:not([date=])').mouseup(_hh=function(ee){
 
-				end_idx=parseInt( $(e.currentTarget).hasClass('active') ? $(e.currentTarget).parent().attr('index') : $(e.currentTarget).attr('index') );
+				end_idx=parseInt( $(ee.currentTarget).hasClass('active') ? $(ee.currentTarget).parent().attr('index') : $(ee.currentTarget).attr('index') );
 
 				_hh ? $('table.scalendar td div:not([date=])').unbind('mouseup',_hh) : undefined;
 
@@ -216,7 +216,7 @@ var bt4=function(){
 				};
 
 				// 設定日期, 刪除底部 Div>Div 的標示
-				if(e.button==0){
+				if(ee.button==0){
 					for(var i=start_idx;i<=end_idx;i++){
 						var _t=$('table.scalendar td div[index='+i+']:not([date=])');
 						if(_t.find('div.active').length>0) _t.find('div.active').remove();
@@ -233,13 +233,11 @@ var bt4=function(){
 						);
 					}
 				}
-				else if(e.button==2){
+				else if(ee.button==2){
 					for(var i=start_idx;i<=end_idx;i++) $('table.scalendar td div[index='+i+']:not([date=])').find('div.active').remove();
 				}
 			});
 		});
-		
-
 	};window.create_calendar=create_calendar_ui.create_calendar;
 
 	// 日曆插入點
