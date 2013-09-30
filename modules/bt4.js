@@ -94,7 +94,7 @@ var bt4=function(){
 				<tr><td class="d0"></td><td class="d1"></td><td class="d2"></td><td class="d3"></td><td class="d4"></td><td class="d5"></td><td class="d6"></td></tr>\
 			</tbody></table>\
 		');
-		calendar_container.find('td').append($('<div style="position:relative;height:20px;line-height:20px;"></div>'));
+		calendar_container.find('td').append($('<div></div>'));
 
 		calendar_container.find('th.cleft').click(function(e){
 			bt4.year_mon.month-=1;
@@ -187,7 +187,7 @@ var bt4=function(){
 
 			var _hh;$('table.scalendar td div:not([date=])').mouseup(_hh=function(e){
 
-				end_idx=parseInt($(e.currentTarget).attr('index'));
+				end_idx=parseInt( $(e.currentTarget).hasClass('active') ? $(e.currentTarget).parent().attr('index') : $(e.currentTarget).attr('index') );
 
 				_hh ? $('table.scalendar td div:not([date=])').unbind('mouseup',_hh) : undefined;
 
@@ -216,15 +216,13 @@ var bt4=function(){
 					}
 				}
 				else if(e.button==2){
+					console.log(123);
 					for(var i=start_idx;i<=end_idx;i++){
+						console.log( 'table.scalendar td div[index='+i+']:not([date=])' );
 						$('table.scalendar td div[index='+i+']:not([date=])').find('div.active').remove();
 					}
 				}
 			});
-
-			// var _hh2;$('table.scalendar td:not([date=])').mousemove(_hh2=function(e){
-			// 	_hh(e);
-			// });
 		});
 		
 

@@ -122,8 +122,15 @@ table input[type=number]:focus {
 	color:blue !important;
 }
 
-table.scalendar td:active {
-	color: red;
+table.scalendar td {
+	padding: 0px !important;
+	height:40px !important;
+}
+
+table.scalendar td div {
+	height:40px !important;
+	line-height: 40px;
+	position: relative;
 }
 
 table.table-usergrid td,table.table-usergrid th {
