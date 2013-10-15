@@ -7,6 +7,17 @@
 
 using namespace std;
 
+// // 尋找取代文字
+// void replace_all(string str,char *r_str){
+// 	int idx=0;
+
+// 	while(idx=str.find(r_str)<=(str.size()-1)){
+
+// 	}
+
+// 	cout << str.find(r_str) << endl;
+// }
+
 // 如果有回傳值(例如 select 由此輸出)
 static int callback_json(void *NotUsed, int argc, char **argv, char **azColName){
 	for(int i=0; i<argc; i++){
@@ -47,10 +58,32 @@ int main(int argc, char* argv[]){
 
 	cout << "<html><body>" << endl;
 
-	sql="select * from Databases;";
+	const char *c="3312sql=select * from sometable;";
+
+	// string cc=string(c);
+
+	// cout << cc << endl;
+
+	// cout << cc.size() << endl;
+
+	// cout << cc.find("sql=") << endl;
+
+	// get sql params
+	// cout << cc.substr(cc.find("sql=")+4,cc.size()) << endl;
+
+	//sql="select * from Databases;";
+
+	string cc=string(getenv("QUERY_STRING"));
+
+	cc.replace(0,cc.size(),"%20");
+
+	sql=cc.substr(cc.find("sql=")+4,cc.size()).c_str();
+
+	cout << sql << endl;
+
 	do_sql_json(sql, rc, zErrMsg, db);
 
-	cout << getenv("QUERY_STRING") << endl;
+	// cout << getenv("QUERY_STRING") << endl;
 	
 	// sql = "CREATE TABLE COMPANY("\
 	// 	"ID				INTEGER	NOT NULL,"\
@@ -91,4 +124,3 @@ int main(int argc, char* argv[]){
 	sqlite3_close(db);
 	return 0;
 }
-
