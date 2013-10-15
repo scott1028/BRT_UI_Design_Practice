@@ -21,12 +21,12 @@ static int callback_json(void *NotUsed, int argc, char **argv, char **azColName)
 // 執行 SQL 的副程式
 void do_sql_json(string sql, int rc, char *zErrMsg, sqlite3 *db){
 	rc = sqlite3_exec(db, sql.c_str(), callback_json, 0, &zErrMsg);
-        if( rc != SQLITE_OK ){
+	if( rc != SQLITE_OK ){
 			//fprintf(stderr, "SQL error: %s\n", zErrMsg);
 			sqlite3_free(zErrMsg);
-        }else{
+	}else{
 			//fprintf(stdout, "SQL Command successfully\n");
-        }
+	}
 }
 
 int main(int argc, char* argv[])
@@ -55,12 +55,12 @@ int main(int argc, char* argv[])
 		"SALARY         REAL,"\
 		"PRIMARY KEY (\"ID\")"\
 	");";
-	do_sql(sql, rc, zErrMsg, db);	// Create
+	do_sql_json(sql, rc, zErrMsg, db);	// Create
 	
 	for(int i=0;i<10;i++){
 		sprintf(i2s, "INSERT INTO COMPANY (NAME,AGE,ADDRESS,SALARY) VALUES ('Paul', %d, 'California', 20000.00 );" ,i);
 		sql=string(i2s);
-		do_sql(sql, rc, zErrMsg, db);	// Create
+		do_sql_json(sql, rc, zErrMsg, db);	// Create
 	}
 	
 	sql = "SELECT * from COMPANY";
