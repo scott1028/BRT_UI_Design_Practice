@@ -42,7 +42,7 @@ int main(int argc, char* argv[]){
 		fprintf(stderr, "Opened database successfully\n");
 	}
 
-	cout << "Content-Type: html/text" << endl << endl;
+	cout << "Content-Type: text/html" << endl << endl;
 
 	cout << "<html><body>" << endl;
 
