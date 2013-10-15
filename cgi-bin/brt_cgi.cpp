@@ -4,19 +4,19 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <regex.h>
 
 using namespace std;
 
-// // 尋找取代文字
-// void replace_all(string str,char *r_str){
-// 	int idx=0;
-
-// 	while(idx=str.find(r_str)<=(str.size()-1)){
-
-// 	}
-
-// 	cout << str.find(r_str) << endl;
-// }
+// 尋找取代文字(replace All)
+void replace_all(string *str,const char *r_str){
+	string rs=string(r_str);
+	int idx=str->find(rs);
+	while(idx<=str->size()){
+		str->replace(str->find(rs),rs.size()," ");
+		idx=str->find(rs,idx);
+	}
+}
 
 // 如果有回傳值(例如 select 由此輸出)
 static int callback_json(void *NotUsed, int argc, char **argv, char **azColName){
@@ -58,26 +58,12 @@ int main(int argc, char* argv[]){
 
 	cout << "<html><body>" << endl;
 
-	const char *c="3312sql=select * from sometable;";
+	sql=string(getenv("QUERY_STRING"));
+	// sql=string("eqwesql=qwe%20eqwewq%20eqwe");
 
-	// string cc=string(c);
+	sql=sql.substr(sql.find("sql=")+4,sql.size());
 
-	// cout << cc << endl;
-
-	// cout << cc.size() << endl;
-
-	// cout << cc.find("sql=") << endl;
-
-	// get sql params
-	// cout << cc.substr(cc.find("sql=")+4,cc.size()) << endl;
-
-	//sql="select * from Databases;";
-
-	string cc=string(getenv("QUERY_STRING"));
-
-	cc.replace(0,cc.size(),"%20");
-
-	sql=cc.substr(cc.find("sql=")+4,cc.size()).c_str();
+	replace_all(&sql,"%20");
 
 	cout << sql << endl;
 
