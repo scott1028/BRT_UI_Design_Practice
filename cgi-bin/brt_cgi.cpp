@@ -30,6 +30,7 @@ static int callback_json(void *NotUsed, int argc, char **argv, char **azColName)
 void do_sql_json(string sql, int rc, char *zErrMsg, sqlite3 *db){
 	rc = sqlite3_exec(db, sql.c_str(), callback_json, 0, &zErrMsg);
 	if( rc != SQLITE_OK ){
+		cout << "sql error!!!" << endl;
 		sqlite3_free(zErrMsg);
 	}else{
 		//fprintf(stdout, "SQL Command successfully\n");
