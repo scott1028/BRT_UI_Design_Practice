@@ -9,12 +9,9 @@ using namespace std;
 
 // 如果有回傳值(例如 select 由此輸出)
 static int callback_json(void *NotUsed, int argc, char **argv, char **azColName){
-	int i;
-	//cout << "{";
-	for(i=0; i<argc; i++){
-		//printf("\"%s\" : %s, ", azColName[i], argv[i] ? argv[i] : "NULL");
+	for(int i=0; i<argc; i++){
+		printf("\"%s\" : %s, ", azColName[i], argv[i] ? argv[i] : "NULL");
 	}
-	//cout << "}, ";
 	return 0;
 }
 
@@ -22,7 +19,6 @@ static int callback_json(void *NotUsed, int argc, char **argv, char **azColName)
 void do_sql_json(string sql, int rc, char *zErrMsg, sqlite3 *db){
 	rc = sqlite3_exec(db, sql.c_str(), callback_json, 0, &zErrMsg);
 	if( rc != SQLITE_OK ){
-		//fprintf(stderr, "SQL error: %s\n", zErrMsg);
 		sqlite3_free(zErrMsg);
 	}else{
 		//fprintf(stdout, "SQL Command successfully\n");
@@ -39,12 +35,21 @@ int main(int argc, char* argv[]){
 	rc = sqlite3_open("test.db", &db);
 
 	if( rc ){
-		//fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
 		return 0;
 	}
 	else{
-		//fprintf(stderr, "Opened database successfully\n");
+		fprintf(stderr, "Opened database successfully\n");
 	}
+
+	cout << "Content-Type: html/text" << endl << endl;
+
+	cout << "<html><body>" << endl;
+
+	sql="select * from Databases;";
+	do_sql_json(sql, rc, zErrMsg, db);
+
+	cout << getenv("QUERY_STRING") << endl;
 	
 	// sql = "CREATE TABLE COMPANY("\
 	// 	"ID				INTEGER	NOT NULL,"\
@@ -79,6 +84,8 @@ int main(int argc, char* argv[]){
 	
 	// // Get Data Handle (與 Post Handle 不能共存)
 	// //cout << "[{ \"get\" : \"" << getenv("QUERY_STRING") << "\" }]";
+
+	cout << "</body></html>" << endl;
 	
 	sqlite3_close(db);
 	return 0;
