@@ -107,9 +107,11 @@ int main(int argc, char* argv[]){
 								_this.debug ? console.log(_this.result) : undefined;\
 							}\
 						});\
+						return _this.result;\
 					}\
 				};\
-				var sql=new cmd('create table devise(id integer primary key,name text);','/cgi-bin/a.out','post',true);\
+				var sql1=new cmd('create table devise(id integer primary key,name text);','/cgi-bin/a.out','post',true);\
+				var sql2=new cmd('select * from devise;','/cgi-bin/a.out','post',true);\
 			</script>"\
 		<< endl;
 		cout << "</body></html>" << endl;
