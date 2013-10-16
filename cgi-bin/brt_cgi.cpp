@@ -8,6 +8,25 @@
 
 using namespace std;
 
+// URIDecode(用來解析參數先過濾掉規避字)
+string urlDecode(string &SRC) {
+	string ret;
+	char ch;
+	int i, ii;
+	for (i=0; i<SRC.length(); i++) {
+		if (int(SRC[i])==37) {
+			sscanf(SRC.substr(i+1,2).c_str(), "%x", &ii);
+			ch=static_cast<char>(ii);
+			ret+=ch;
+			i=i+2;
+		}
+		else {
+			ret+=SRC[i];
+		}
+	}
+	return (ret);
+}
+
 // 尋找取代文字(replace All)
 void replace_all(string *str,const char *r_str){
 	string rs=string(r_str);
@@ -20,21 +39,26 @@ void replace_all(string *str,const char *r_str){
 
 // 如果有回傳值(例如 select 由此輸出)
 static int callback_json(void *NotUsed, int argc, char **argv, char **azColName){
+	cout << "{";
 	for(int i=0; i<argc; i++){
-		printf("\"%s\" : %s, ", azColName[i], argv[i] ? argv[i] : "NULL");
+		printf("\"%s\" : \"%s\", ", azColName[i], argv[i] ? argv[i] : "NULL");
 	}
+	cout << "}, " << endl;
 	return 0;
 }
 
 // 執行 SQL 的副程式
 void do_sql_json(string sql, int rc, char *zErrMsg, sqlite3 *db){
+	cout << "[" << endl;
 	rc = sqlite3_exec(db, sql.c_str(), callback_json, 0, &zErrMsg);
 	if( rc != SQLITE_OK ){
-		cout << "sql error!!!" << endl;
+		cout << "/*sql error!!!*/" << endl;
 		sqlite3_free(zErrMsg);
-	}else{
+	}
+	else{
 		//fprintf(stdout, "SQL Command successfully\n");
 	}
+	cout << "]" << endl;
 }
 
 int main(int argc, char* argv[]){
@@ -54,60 +78,86 @@ int main(int argc, char* argv[]){
 		//fprintf(stderr, "Opened database successfully\n");
 	}
 
-	// 前面不能再印東西否則會無法辨別 Http 1.1 Header
-	cout << "Content-Type: text/html" << endl << endl;
-
-	cout << "<html><body>" << endl;
+	// cout << "<html><body>" << endl;
 
 	sql=string(getenv("QUERY_STRING"));
-	// sql=string("eqwesql=qwe%20eqwewq%20eqwe");
 
-	sql=sql.substr(sql.find("sql=")+4,sql.size());
+	if(sql.size()<=0){
+		cout << "Content-Type: text/html" << endl << endl;
+		cout << "<html><body>" << endl;
+		cout << "<script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>" << endl;
+		cout << "\
+			<script>\
+				var cmd={sql:'select * from test;'};\
+				var excuteSQL=function(sql_result_obj,async,debug){\
+					$.ajax({\
+						url:'/cgi-bin/a.out',data:{sql:encodeURI(sql_result_obj.sql)},\
+						dataType:'html',\
+						async:async || false,\
+						success:function(data){\
+							sql_result_obj.result=eval(data);\
+							debug ? console.log(sql_result_obj.result) : undefined;\
+						}\
+					});\
+				};\
+			</script>"\
+		<< endl;
+		cout << "</body></html>" << endl;
+	}
+	else{
+		// 前面不能再印東西否則會無法辨別 Http 1.1 Header
+		cout << "Content-Type: text/json" << endl << endl;
 
-	replace_all(&sql,"%20");
+		sql=urlDecode(sql);
+		// sql=string("eqwesql=qwe%20eqwewq%20eqwe");
 
-	cout << sql << endl;
+		sql=sql.substr(sql.find("sql=")+4,sql.size());
 
-	do_sql_json(sql, rc, zErrMsg, db);
+		replace_all(&sql,"%20");
 
-	// cout << getenv("QUERY_STRING") << endl;
-	
-	// sql = "CREATE TABLE COMPANY("\
-	// 	"ID				INTEGER	NOT NULL,"\
-	// 	"NAME			TEXT    NOT NULL,"\
-	// 	"AGE            INT     NOT NULL,"\
-	// 	"ADDRESS        CHAR(50),"\
-	// 	"SALARY         REAL,"\
-	// 	"PRIMARY KEY (\"ID\")"\
-	// ");";
-	// do_sql_json(sql, rc, zErrMsg, db);	// Create
-	
-	// for(int i=0;i<10;i++){
-	// 	sprintf(i2s, "INSERT INTO COMPANY (NAME,AGE,ADDRESS,SALARY) VALUES ('Paul', %d, 'California', 20000.00 );" ,i);
-	// 	sql=string(i2s);
-	// 	do_sql_json(sql, rc, zErrMsg, db);	// Create
-	// }
-	
-	// sql = "SELECT * from COMPANY";
-	// cout << "Content-Type: text/json" << endl << endl;
-	// do_sql_json(sql, rc, zErrMsg, db);	// Read
+		// cout << "/*" << sql << "*/" << endl;
 
-	// // Post Data Handle (與 Get Handle 不能共存)
-	// int contentLength = atoi( getenv( "CONTENT_LENGTH" ) );
-	// char *postString=new char[contentLength+1];
-	// cin.read( postString, contentLength );
-	// postString[contentLength] = '\0';		// set EOF point by yourself...
-	// cout << "[";
-	// cout << "{ \"post\" : \"" << postString << "\" }";
-	// cout << ",";
-	// cout << "{ \"len\" : \"" << contentLength << "\" }";
-	// cout << "]" << endl;
-	
-	// // Get Data Handle (與 Post Handle 不能共存)
-	// //cout << "[{ \"get\" : \"" << getenv("QUERY_STRING") << "\" }]";
+		do_sql_json(sql, rc, zErrMsg, db);
 
-	cout << "</body></html>" << endl;
-	
-	sqlite3_close(db);
+		// cout << getenv("QUERY_STRING") << endl;
+		
+		// sql = "CREATE TABLE COMPANY("\
+		// 	"ID				INTEGER	NOT NULL,"\
+		// 	"NAME			TEXT    NOT NULL,"\
+		// 	"AGE            INT     NOT NULL,"\
+		// 	"ADDRESS        CHAR(50),"\
+		// 	"SALARY         REAL,"\
+		// 	"PRIMARY KEY (\"ID\")"\
+		// ");";
+		// do_sql_json(sql, rc, zErrMsg, db);	// Create
+		
+		// for(int i=0;i<10;i++){
+		// 	sprintf(i2s, "INSERT INTO COMPANY (NAME,AGE,ADDRESS,SALARY) VALUES ('Paul', %d, 'California', 20000.00 );" ,i);
+		// 	sql=string(i2s);
+		// 	do_sql_json(sql, rc, zErrMsg, db);	// Create
+		// }
+		
+		// sql = "SELECT * from COMPANY";
+		// cout << "Content-Type: text/json" << endl << endl;
+		// do_sql_json(sql, rc, zErrMsg, db);	// Read
+
+		// // Post Data Handle (與 Get Handle 不能共存)
+		// int contentLength = atoi( getenv( "CONTENT_LENGTH" ) );
+		// char *postString=new char[contentLength+1];
+		// cin.read( postString, contentLength );
+		// postString[contentLength] = '\0';		// set EOF point by yourself...
+		// cout << "[";
+		// cout << "{ \"post\" : \"" << postString << "\" }";
+		// cout << ",";
+		// cout << "{ \"len\" : \"" << contentLength << "\" }";
+		// cout << "]" << endl;
+		
+		// // Get Data Handle (與 Post Handle 不能共存)
+		// //cout << "[{ \"get\" : \"" << getenv("QUERY_STRING") << "\" }]";
+
+		// cout << "</body></html>" << endl;
+		
+		sqlite3_close(db);
+	}
 	return 0;
 }
