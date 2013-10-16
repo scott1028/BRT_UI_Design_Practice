@@ -2,7 +2,7 @@ var bt2=function(){
 	$('ul.nav').empty()
 	.append('<li class="active"><a href="#">首页</a></li>')
 	.append('<li class="active"><a href="#">BRT即時狀態</a></li>')
-	.append('<li class="active"><a href="#">號誌控制邏輯</a></li>');
+	.append('<li class="active"><a href="#">號誌控制狀態</a></li>');
 
 	$('table td.bottomInfo').show().css('height','200px');
 	qmap=$('#centerview').empty().css('background-color','transparent').append($('<div class="_gmap"></div>'));

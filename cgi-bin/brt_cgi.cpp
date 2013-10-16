@@ -92,7 +92,7 @@ int main(int argc, char* argv[]){
 					this.url=url;\
 					this.type=type;\
 					this.debug=debug;\
-					this.excuteSQL=function(){\
+					this.executeSQL=function(){\
 						var _this=this;\
 						$.ajax({\
 							url:this.url+'?cmd=true',\
@@ -112,6 +112,7 @@ int main(int argc, char* argv[]){
 				};\
 				var sql1=new cmd('create table devise(id integer primary key,name text);','/cgi-bin/a.out','post',true);\
 				var sql2=new cmd('select * from devise;','/cgi-bin/a.out','post',true);\
+				var test=function(){sql2.sql='insert into devise(name) values(\\'555555555555555\\');select * from devise;';sql2.executeSQL();};\
 			</script>"\
 		<< endl;
 		cout << "</body></html>" << endl;
