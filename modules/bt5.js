@@ -1,5 +1,5 @@
 var bt5=function(){
-
+	$('.bottomInfo').empty();
 	// 基本版頭
 		$('ul.nav').empty()
 		.append('<li class="active"><a href="#">首页</a></li>')

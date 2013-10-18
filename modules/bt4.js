@@ -1,4 +1,5 @@
 var bt4=function(){
+	$('.bottomInfo').empty();
 	// 基本版型
 		$('ul.nav').empty()
 		.append('<li class="active"><a href="#">首页</a></li>')
@@ -531,9 +532,6 @@ var bt4=function(){
 
 	// 新增時間按鈕 script
 	qmap.find('.btn-addtime').click(function(e){
-
-		console.log(1);
-
 		var item=qmap.find('tbody>tr>th>input[type=checkbox]:checked:last').parent().parent();
 		if(item.length!=0) create_tr_ui.create_and_insert(undefined,item);
 		else create_tr_ui.create_and_insert(undefined);

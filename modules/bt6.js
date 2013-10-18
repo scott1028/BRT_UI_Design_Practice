@@ -1,5 +1,5 @@
 var bt6=function(){
-
+	$('.bottomInfo').empty();
 	$('ul.nav').empty()
 	.append('<li class="active"><a href="#">首页</a></li>')
 	.append('<li class="active"><a href="#">BRT績效</a></li>');

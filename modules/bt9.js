@@ -1,4 +1,5 @@
 var bt9=function(){
+	$('.bottomInfo').empty();
 	$('ul.nav').empty()
 	.append('<li class="active"><a href="#">後台</a></li>')
 	.append('<li class="active"><a href="#">歷史資料查詢</a></li>');

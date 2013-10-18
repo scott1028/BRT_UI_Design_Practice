@@ -1,4 +1,5 @@
 var bt1=function(){
+	$('.bottomInfo').empty();
 	$('ul.nav').empty()
 	.append('<li class="active"><a href="#">首页</a></li>')
 	.append('<li class="active"><a href="#">BRT即時狀態</a></li>')

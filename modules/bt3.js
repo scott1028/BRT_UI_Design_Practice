@@ -1,4 +1,5 @@
 var bt3=function(){
+	$('.bottomInfo').empty()
 	$('ul.nav').empty()
 	.append('<li class="active"><a href="#">首页</a></li>')
 	.append('<li class="active"><a href="#">控制設備資訊</a></li>');

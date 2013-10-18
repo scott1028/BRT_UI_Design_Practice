@@ -1,5 +1,5 @@
 var bt8=function(){
-
+	$('.bottomInfo').empty();
 	$('ul.nav').empty()
 	.append('<li class="active"><a href="#">後台</a></li>')
 	.append('<li class="active"><a href="#">事故建立</a></li>');
