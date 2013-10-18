@@ -4,12 +4,41 @@
 	<!-- 關閉使用者縮放、啟用固定寬高 -->
 	<meta name="viewport" content="width=devise-width, height=devise-height, initial-scale=1, user-scalable=no">
 	<meta charset="UTF-8">
-	<title>Mobile Web App Sample</title>
+	<title>Mobile Web App Sample(範本框架)</title>
 </head>
 <!-- 關閉觸控拉動網頁、DOM選取功能，會更像App -->
 <!-- 無法關閉 Safari 旋轉 -->
-<body style="margin:0px;padding:0px;" ontouchmove="return false;" onorientationchange="" onselection="return false;">
+<body style="margin:0px;padding:0px;" ontouchmove="return false;" onorientationchange="do_rotate();" onselection="return false;">
 	<!--在設定 Viewport 的 width=devise-width 之後，Iphone 解析度固定為 320px * 480px, 所以之後內容也必須參照此規格 -->
-	<div style="background-color:silver;width:320px;height:480px;">789</div>
+	<div id="orient" style="background-color:silver;width:320px;height:480px;">789</div>
+
+	<!-- 防止畫面旋轉的部分 -->
+	<script>
+		// 使用 CSS 把畫面強制旋轉吧!!!
+		// windows.orientation 為 Mobile 裝置的特有屬性
+		var do_rotate=function(){
+			//alert(window.orientation);
+			if (window.orientation == -90) {
+				document.getElementById('orient').className = 'orientright';
+			}
+			if (window.orientation == 90) {
+				document.getElementById('orient').className = 'orientleft';
+			}
+			if (window.orientation == 0) {
+				document.getElementById('orient').className = '';
+			}
+		};
+	</script>
+	<style>
+		.orientleft {
+			-webkit-transform: rotate(-90deg);
+			-webkit-transform-origin:160px 160px;
+		}
+
+		.orientright {
+			-webkit-transform: rotate(90deg);
+			-webkit-transform-origin:230px 230px;
+		} 
+	</style>
 </body>
 </html>
