@@ -1,39 +1,82 @@
 // 折減比例圖的 UI 設計
 
 $(document).ready(function(e){
-	$.prototype.create_green_red_time_color_bar_ui=function(opt){
+	$.prototype.create_green_red_time_color_bar_ui=function(ratio){
+		// 初始值
+		var ratio=ratio || {
+			green:45,
+			yellow:30,
+			red:10
+		};
+
 		var me=$(this);
 		var ui=$('\
 			<div style="margin:0px;">\
-				<span class="green"></span>\
-				<span class="yellow"></span>\
-				<span class="red"></span>\
+				<div style="width:100%;height:20px;backgroundColor:transparent;"></div>\
+				<div class="box">\
+					<div class="lightbar green">\
+						<span style="float:right;position:relative;top:-20px;">m1</span>\
+					</div>\
+					<div class="lightbar yellow">\
+						<span style="float:right;position:relative;top:-20px;">T1</span>\
+					</div>\
+					<div class="lightbar red">\
+						<span style="float:right;position:relative;top:-20px;">M1</span>\
+					</div>\
+				</div>\
 			</div>\
 		');
 		ui.css({
-			backgroundColor:'silver',
 			width:240,
 			height:40,
 			position:'relative',
 			padding:0,
 			margin:0,
-			textAlignL'center'
+			textAlign:'center',
 		});
-		ui.find('span').css({
-			width:'33.33%',
-			height:'100%',
-			padding:0,
+		ui.find('div.box').css({
+			boxShadow:'1px 1px 3px #303030',
 			margin:0,
-			float:'left'
+			padding:0,
+			height:20
 		});
-		ui.find('span.green').css({backgroundColor:'green',display:'inline-block'});
-		ui.find('span.yellow').css({backgroundColor:'yellow',display:'inline-block'});
-		ui.find('span.red').css({backgroundColor:'red',display:'inline-block'});
+		ui.find('.lightbar').css({
+			position:'absoulte',
+			width:80,
+			height:20,
+			opacity:0.5,
+			padding:0,
+			margin:0
+		});
+		
+		// 製作類似 CSS Hover 的漸進變化效果
+		ui.find('.lightbar').hover(function(e){
+			$(e.target).animate({
+				opacity:1
+			},200);
+		},function(e){
+			$(e.target).animate({
+				opacity:0.5
+			},100);
+		});
 
-		if(opt && opt.css) ui.css(opt.css);
+		var pw=ui.width();
+		var sum=0;
+		for(var i in ratio) sum+=ratio[i];
+		for(var i in ratio){
+			ui.find('.'+i).width(pw*ratio[i]/sum);
+		};
 
-		// 增加 UI 到畫面上
-		ui.appendTo(me);
+		// float 前兩個讓它去除該作用兩旁的 space 字元
+		ui.find('.lightbar.green').css({backgroundColor:'green',display:'inline-block',float:'left'});
+		ui.find('.lightbar.yellow').css({backgroundColor:'yellow',display:'inline-block',float:'left'});
+		// 最後一個不用 float
+		ui.find('.lightbar.red').css({backgroundColor:'red',display:'inline-block'});
+
+		// 將目標元素替換成自訂的 UI
+		me.replaceWith(ui);
+
+		return me;
 	};
 
 	// Debug
@@ -43,7 +86,16 @@ $(document).ready(function(e){
 
 // develop function
 var test=function(){
-	$('.bottomInfo').create_green_red_time_color_bar_ui();
-};
 
-console.log(1);
+	[
+		$('<div style="width:240px;"></div>'),
+		$('<div style="width:240px;"></div>'),
+		$('<div style="width:240px;"></div>'),
+	].forEach(function(r,i,a){
+		$('.bottomInfo').append(r);
+	});
+
+	$('.bottomInfo').find('>div:eq(0)').create_green_red_time_color_bar_ui({green:30,yellow:24,red:10});
+	$('.bottomInfo').find('>div:eq(1)').create_green_red_time_color_bar_ui({green:1,yellow:1,red:1});
+	$('.bottomInfo').find('>div:eq(2)').create_green_red_time_color_bar_ui({green:1,yellow:2,red:3})
+};
