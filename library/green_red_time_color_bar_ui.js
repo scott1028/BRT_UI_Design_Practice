@@ -15,20 +15,20 @@ $(document).ready(function(e){
 				<div style="width:100%;height:20px;backgroundColor:transparent;"></div>\
 				<div class="box">\
 					<div class="lightbar green">\
-						<span style="float:right;position:relative;top:-20px;">m1</span>\
+						<span style="float:right;position:relative;top:-18px;">m1</span>\
 					</div>\
 					<div class="lightbar yellow">\
-						<span style="float:right;position:relative;top:-20px;">T1</span>\
+						<span style="float:right;position:relative;top:-18px;">T1</span>\
 					</div>\
 					<div class="lightbar red">\
-						<span style="float:right;position:relative;top:-20px;">M1</span>\
+						<span style="float:right;position:relative;top:-18px;">M1</span>\
 					</div>\
 				</div>\
 			</div>\
 		');
 		ui.css({
 			width:240,
-			height:40,
+			height:30,
 			position:'relative',
 			padding:0,
 			margin:0,
@@ -38,12 +38,12 @@ $(document).ready(function(e){
 			boxShadow:'1px 1px 3px #303030',
 			margin:0,
 			padding:0,
-			height:20
+			height:10
 		});
 		ui.find('.lightbar').css({
 			position:'absoulte',
 			width:80,
-			height:20,
+			height:10,
 			opacity:0.5,
 			padding:0,
 			margin:0
@@ -71,7 +71,7 @@ $(document).ready(function(e){
 		ui.find('.lightbar.green').css({backgroundColor:'green',display:'inline-block',float:'left'});
 		ui.find('.lightbar.yellow').css({backgroundColor:'yellow',display:'inline-block',float:'left'});
 		// 最後一個不用 float
-		ui.find('.lightbar.red').css({backgroundColor:'red',display:'inline-block'});
+		ui.find('.lightbar.red').css({backgroundColor:'red',display:'inline-block',float:'left'});
 
 		// 將目標元素替換成自訂的 UI
 		me.replaceWith(ui);
